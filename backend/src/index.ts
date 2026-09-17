@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import apiRoutes from './routes/api';
@@ -10,11 +10,11 @@ const port = process.env.PORT || 5000;
 
 // Configuración de CORS
 const allowedOrigins = process.env.CORS_ORIGIN 
-  ? process.env.CORS_ORIGIN.split(',').map(s => s.trim()) 
+  ? process.env.CORS_ORIGIN.split(',').map((s: string) => s.trim()) 
   : ['http://localhost:5173', 'http://localhost:3000'];
 
 app.use(cors({
-  origin: (origin, callback) => {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
     // Permitir requests sin origin (ej. Postman, server-to-server) o si está en la lista permitida o en Render
     if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.onrender.com')) {
       callback(null, true);
@@ -40,7 +40,7 @@ app.get('/api/health', (req: Request, res: Response) => {
 app.use('/api', apiRoutes);
 
 // Manejo de errores global
-app.use((err: any, req: Request, res: Response, next: express.NextFunction) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error('Error no controlado:', err);
   res.status(500).json({
     success: false,
