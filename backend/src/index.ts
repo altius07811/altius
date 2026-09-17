@@ -15,11 +15,11 @@ const allowedOrigins = process.env.CORS_ORIGIN
 
 app.use(cors({
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-    // Permitir requests sin origin (ej. Postman, server-to-server) o si está en la lista permitida o en Render
-    if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.onrender.com')) {
+    // Permitir requests sin origin o desde dominios de Render / frontend
+    if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*') || origin.endsWith('.onrender.com')) {
       callback(null, true);
     } else {
-      callback(null, true); // Permisivo para desarrollo y demos
+      callback(null, true);
     }
   },
   credentials: true
@@ -36,8 +36,17 @@ app.get('/api/health', (req: Request, res: Response) => {
   });
 });
 
-// Rutas de la API
+app.get('/health', (req: Request, res: Response) => {
+  res.json({
+    status: 'ok',
+    service: 'ALTIUS Backend API',
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Rutas de la API (soportadas con y sin prefijo /api)
 app.use('/api', apiRoutes);
+app.use('/', apiRoutes);
 
 // Manejo de errores global
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

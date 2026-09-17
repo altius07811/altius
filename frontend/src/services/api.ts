@@ -1,7 +1,17 @@
 import { PreguntaEncuesta, RespuestaUsuario, ResultadoCategoria, SugerenciaItem, RecursoDerivacion, CategoriaTrastorno } from '../types';
 import { MOCK_PREGUNTAS, MOCK_SUGERENCIAS, MOCK_RECURSOS_DERIVACION } from '../data/mockData';
 
-const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || '/api';
+// Función para normalizar la URL del Backend (agrega /api automáticamente si no está presente)
+const getBaseUrl = (): string => {
+  let url = (import.meta as any).env?.VITE_API_URL || '/api';
+  url = url.trim().replace(/\/+$/, ''); // quitar trailing slash
+  if (url && !url.endsWith('/api')) {
+    url = `${url}/api`;
+  }
+  return url;
+};
+
+const API_BASE_URL = getBaseUrl();
 
 export const fetchPreguntas = async (): Promise<PreguntaEncuesta[]> => {
   try {
