@@ -1,0 +1,154 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model PreguntaEncuesta {
+  id_pregunta       String             @id
+  categoria         String?
+  subdimension      String?
+  rol               String?
+  tipo_pregunta     String?
+  texto_pregunta    String
+  orden             Int?
+  limite_caracteres Int?
+
+  opciones          OpcionRespuesta[]
+  respuestas        RespuestaEstudiante[]
+
+  @@map("preguntas_encuesta")
+}
+
+model OpcionRespuesta {
+  id_opcion     String           @id
+  id_pregunta   String
+  texto_opcion  String
+  peso          Int
+  orden_opcion  Int?
+
+  pregunta      PreguntaEncuesta @relation(fields: [id_pregunta], references: [id_pregunta], onDelete: Cascade)
+
+  @@index([id_pregunta], name: "idx_opciones_id_pregunta")
+  @@map("opciones_respuesta")
+}
+
+model ReglaNivel {
+  id_regla          String  @id
+  categoria         String?
+  tipo              String?
+  nivel_o_regla     String?
+  variable_evaluada String?
+  valor_min         Int?
+  valor_max         Int?
+  condicion_texto   String?
+  rango_validado    String?
+  detalle           String?
+  fuente            String?
+
+  @@index([categoria], name: "idx_reglas_categoria")
+  @@map("reglas_niveles")
+}
+
+model Sugerencia {
+  id_sugerencia String  @id
+  categoria     String?
+  nivel         String?
+  contexto      String? // ej: aula, casa, derivacion
+  sugerencia    String
+  detalle       String?
+  fuente        String?
+
+  @@index([categoria, nivel], name: "idx_sugerencias_categoria_nivel")
+  @@map("sugerencias")
+}
+
+model RespuestaEstudiante {
+  id            BigInt            @id @default(autoincrement())
+  estudiante_id String
+  rol           String?
+  categoria     String
+  id_pregunta   String?
+  respuesta     String?
+  peso          Int?
+  creado_en     DateTime          @default(now()) @db.Timestamptz()
+
+  pregunta      PreguntaEncuesta? @relation(fields: [id_pregunta], references: [id_pregunta], onDelete: SetNull)
+
+  @@index([estudiante_id, categoria], name: "idx_respuestas_estudiante_categoria")
+  @@index([id_pregunta], name: "idx_respuestas_id_pregunta")
+  @@map("respuestas_estudiante")
+}
+
+model Resultado {
+  id              BigInt   @id @default(autoincrement())
+  estudiante_id   String
+  categoria       String?
+  puntaje_total   Int?
+  nivel           String?
+  texto_resultado String?
+  creado_en       DateTime @default(now()) @db.Timestamptz()
+
+  @@index([estudiante_id], name: "idx_resultados_estudiante")
+  @@map("resultados")
+}
+
+model TestProfesional {
+  id                                  BigInt  @id @default(autoincrement())
+  categoria                           String?
+  test                                String?
+  tipo_test                           String?
+  informante_o_administracion         String?
+  edad_aprox                          String?
+  variables_que_ingresa_el_profesional String?
+  interpretacion_breve                String?
+  disponibilidad_bolivia_latam        String?
+  fuente                              String?
+
+  @@index([categoria], name: "idx_tests_categoria")
+  @@map("tests_profesionales")
+}
+
+model ReglaGeneral {
+  id             BigInt  @id @default(autoincrement())
+  categoria      String?
+  regla          String?
+  condicion      String?
+  que_hace_la_app String?
+  fuente         String?
+
+  @@index([categoria], name: "idx_reglas_generales_categoria")
+  @@map("reglas_generales")
+}
+
+model PerfilInterpretacion {
+  id                      BigInt  @id @default(autoincrement())
+  categoria               String?
+  perfil_resultado        String?
+  criterio_clasificacion  String?
+  interpretacion_app      String?
+  plan_profesional        String?
+  plan_padres             String?
+  plan_escuela_institucion String?
+  fuente                  String?
+
+  @@index([categoria], name: "idx_perfiles_categoria")
+  @@map("perfiles_interpretacion")
+}
+
+model HerramientaTCC {
+  id                  BigInt  @id @default(autoincrement())
+  categoria           String?
+  tecnica             String?
+  descripcion         String?
+  aplicacion_practica String?
+  dirigido_a          String?
+  fuente              String?
+
+  @@index([categoria], name: "idx_herramientas_categoria")
+  @@map("herramientas_tcc")
+}

@@ -1,0 +1,206 @@
+import { Request, Response } from 'express';
+import { prisma } from '../lib/prisma';
+
+// Helper para convertir BigInt a String/Number en respuestas JSON
+const formatJson = (data: any): any => {
+  return JSON.parse(
+    JSON.stringify(data, (key, value) =>
+      typeof value === 'bigint' ? value.toString() : value
+    )
+  );
+};
+
+export const getPreguntas = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const preguntas = await prisma.preguntaEncuesta.findMany({
+      orderBy: { orden: 'asc' },
+      include: {
+        opciones: {
+          orderBy: { orden_opcion: 'asc' }
+        }
+      }
+    });
+
+    res.json({
+      success: true,
+      data: formatJson(preguntas)
+    });
+  } catch (error: any) {
+    console.error('Error al obtener preguntas:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error al cargar las preguntas de la encuesta.',
+      error: error.message
+    });
+  }
+};
+
+export const guardarRespuestasYCalcular = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { estudiante_id, rol, respuestas } = req.body;
+
+    if (!estudiante_id || !Array.isArray(respuestas)) {
+      res.status(400).json({
+        success: false,
+        message: 'Faltan parámetros obligatorios (estudiante_id o respuestas).'
+      });
+      return;
+    }
+
+    // 1. Guardar respuestas en la tabla respuestas_estudiante
+    const respuestasAGuardar = respuestas.map((r: any) => ({
+      estudiante_id: String(estudiante_id),
+      rol: rol || r.rol || 'docente',
+      categoria: r.categoria || 'General',
+      id_pregunta: r.id_pregunta || null,
+      respuesta: r.respuesta || r.texto_opcion || '',
+      peso: typeof r.peso === 'number' ? r.peso : 0
+    }));
+
+    if (respuestasAGuardar.length > 0) {
+      await prisma.respuestaEstudiante.createMany({
+        data: respuestasAGuardar
+      });
+    }
+
+    // 2. Calcular puntajes por categoría (TDAH, Dislexia, Discalculia)
+    const categorias = ['TDAH', 'Dislexia', 'Discalculia'];
+    const puntajesPorCategoria: Record<string, number> = {
+      TDAH: 0,
+      Dislexia: 0,
+      Discalculia: 0
+    };
+
+    respuestas.forEach((r: any) => {
+      const cat = r.categoria;
+      if (cat && categorias.includes(cat)) {
+        puntajesPorCategoria[cat] += typeof r.peso === 'number' ? r.peso : 0;
+      }
+    });
+
+    // 3. Obtener reglas de niveles para clasificar
+    const reglas = await prisma.reglaNivel.findMany();
+    const resultadosCalculados = [];
+
+    for (const cat of categorias) {
+      const puntaje = puntajesPorCategoria[cat];
+      // Buscar regla que corresponda al puntaje
+      const reglaEncontrada = reglas.find(
+        (reg) =>
+          reg.categoria?.toLowerCase() === cat.toLowerCase() &&
+          reg.valor_min !== null &&
+          reg.valor_max !== null &&
+          puntaje >= reg.valor_min &&
+          puntaje <= reg.valor_max
+      );
+
+      let nivel = 'Sin señales significativas';
+      let textoResultado = 'Comportamiento dentro del rango típico esperado.';
+
+      if (reglaEncontrada) {
+        nivel = reglaEncontrada.nivel_o_regla || nivel;
+        textoResultado = reglaEncontrada.detalle || textoResultado;
+      } else {
+        if (puntaje >= 4) {
+          nivel = 'Señal Moderada';
+          textoResultado = 'Se observan algunos indicadores que ameritan acompañamiento pedagógico.';
+        } else if (puntaje >= 2) {
+          nivel = 'Señal Leve';
+          textoResultado = 'Manifestaciones ocasionales observables.';
+        }
+      }
+
+      // Guardar en tabla resultados
+      const resultadoGuardado = await prisma.resultado.create({
+        data: {
+          estudiante_id: String(estudiante_id),
+          categoria: cat,
+          puntaje_total: puntaje,
+          nivel: nivel,
+          texto_resultado: textoResultado
+        }
+      });
+
+      resultadosCalculados.push({
+        id: resultadoGuardado.id.toString(),
+        categoria: cat,
+        puntaje_total: puntaje,
+        nivel: nivel,
+        texto_resultado: textoResultado,
+        fuente: reglaEncontrada?.fuente || 'Vizcarra & Terán (2018)'
+      });
+    }
+
+    // 4. Obtener sugerencias personalizadas
+    const sugerencias = await prisma.sugerencia.findMany();
+
+    res.json({
+      success: true,
+      data: {
+        estudiante_id,
+        resultados: resultadosCalculados,
+        sugerencias: formatJson(sugerencias),
+        aviso_legal: 'ALTIUS es una herramienta de orientación y cribado psicopedagógico preliminar. NO constituye un diagnóstico médico, clínico ni neurológico.'
+      }
+    });
+  } catch (error: any) {
+    console.error('Error al procesar respuestas:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error al procesar y guardar las respuestas de la encuesta.',
+      error: error.message
+    });
+  }
+};
+
+export const getResultadosPorEstudiante = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { estudiante_id } = req.params;
+
+    const resultados = await prisma.resultado.findMany({
+      where: { estudiante_id: String(estudiante_id) },
+      orderBy: { creado_en: 'desc' },
+      take: 5
+    });
+
+    const sugerencias = await prisma.sugerencia.findMany();
+
+    res.json({
+      success: true,
+      data: {
+        estudiante_id,
+        resultados: formatJson(resultados),
+        sugerencias: formatJson(sugerencias)
+      }
+    });
+  } catch (error: any) {
+    console.error('Error al obtener resultados:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error al consultar resultados.',
+      error: error.message
+    });
+  }
+};
+
+export const getRecursosDerivacion = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const tests = await prisma.testProfesional.findMany();
+    const sugerencias = await prisma.sugerencia.findMany();
+
+    res.json({
+      success: true,
+      data: {
+        tests_profesionales: formatJson(tests),
+        sugerencias: formatJson(sugerencias)
+      }
+    });
+  } catch (error: any) {
+    console.error('Error al obtener recursos:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error al obtener recursos de derivación.',
+      error: error.message
+    });
+  }
+};

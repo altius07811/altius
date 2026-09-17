@@ -1,0 +1,50 @@
+services:
+  # -------------------------------------------------------------
+  # 1. Backend Web Service (Node.js + Express + Prisma)
+  # -------------------------------------------------------------
+  - type: web
+    name: altius-backend
+    env: node
+    plan: free
+    region: oregon
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false # Configurar en el Dashboard de Render con el connection string de Supabase
+      - key: DIRECT_URL
+        sync: false # Configurar en el Dashboard de Render con la URL directa de Supabase
+      - key: CORS_ORIGIN
+        fromService:
+          type: web
+          name: altius-frontend
+          property: host
+
+  # -------------------------------------------------------------
+  # 2. Frontend Web Service / Static Site (React + Vite + Tailwind)
+  # -------------------------------------------------------------
+  - type: web
+    name: altius-frontend
+    env: static
+    plan: free
+    region: oregon
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: altius-backend
+          property: host
+          format: https://${host}/api
