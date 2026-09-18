@@ -14,10 +14,16 @@ import {
   Send,
   Loader2,
   Lightbulb,
-  MessageSquare
+  MessageSquare,
+  Wrench,
+  BookOpen,
+  ChevronDown,
+  ChevronUp,
+  Stethoscope
 } from 'lucide-react';
 import { ResultadoCategoria, SugerenciaItem, AnalisisPedagogicoIA } from '../types';
 import { consultarAsistenteIA } from '../services/api';
+import { MOCK_HERRAMIENTAS_TCC } from '../data/mockData';
 
 interface ResultsScreenProps {
   studentCode: string;
@@ -28,6 +34,7 @@ interface ResultsScreenProps {
   avisoLegal?: string;
   onNavigateToReferral: () => void;
   onRestart: () => void;
+  onOpenReferences?: () => void;
 }
 
 // Componente para efecto de máquina de escribir fluido (typewriter)
@@ -43,7 +50,6 @@ const TypewriterText: React.FC<{ text: string; speed?: number }> = ({ text, spee
   useEffect(() => {
     if (currentIndex < text.length) {
       const timeout = setTimeout(() => {
-        // Avance de 1 o 2 caracteres para fluidez natural
         const step = Math.min(2, text.length - currentIndex);
         setDisplayedText((prev) => prev + text.slice(currentIndex, currentIndex + step));
         setCurrentIndex((prev) => prev + step);
@@ -70,12 +76,19 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
   observaciones,
   avisoLegal,
   onNavigateToReferral,
-  onRestart
+  onRestart,
+  onOpenReferences
 }) => {
   // Asistente interactivo de IA
   const [preguntaIA, setPreguntaIA] = useState('');
   const [cargandoIA, setCargandoIA] = useState(false);
   const [historialChat, setHistorialChat] = useState<Array<{ id: number; remitente: 'usuario' | 'ia'; texto: string; isNew?: boolean }>>([]);
+
+  // Pestaña activa para el plan en 3 bloques
+  const [tabPlan, setTabPlan] = useState<'aula' | 'casa' | 'profesional'>('aula');
+  
+  // Herramienta TCC seleccionada/expandida
+  const [herramientaExpandida, setHerramientaExpandida] = useState<string | null>(null);
 
   const handleEnviarConsultaIA = async (preguntaTexto?: string) => {
     const textoAEnviar = (preguntaTexto || preguntaIA).trim();
@@ -142,8 +155,9 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
     };
   };
 
-  const sugerenciasAula = sugerencias.filter((s) => s.contexto === 'aula');
+  const sugerenciasAula = sugerencias.filter((s) => s.contexto === 'aula' || s.contexto === 'escuela');
   const sugerenciasCasa = sugerencias.filter((s) => s.contexto === 'casa');
+  const sugerenciasProfesional = sugerencias.filter((s) => s.contexto === 'profesional' || s.contexto === 'derivacion');
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 fade-in space-y-6 sm:space-y-8">
@@ -164,10 +178,20 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
             </p>
           </div>
 
-          <div className="flex items-center gap-2.5 self-start sm:self-center">
+          <div className="flex flex-wrap items-center gap-2.5 self-start sm:self-center">
+            {onOpenReferences && (
+              <button
+                type="button"
+                onClick={onOpenReferences}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold bg-[#DFD5F5] hover:bg-[#d0c2ee] text-[#483962] transition-colors cursor-pointer"
+              >
+                <BookOpen className="w-4 h-4 text-[#483962]" />
+                <span>Fuentes Científicas</span>
+              </button>
+            )}
             <button
               onClick={onRestart}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-[#E4EEF6] hover:bg-[#d5e5f2] text-[#253444] transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-xs sm:text-sm font-bold bg-[#E4EEF6] hover:bg-[#d5e5f2] text-[#253444] transition-colors cursor-pointer"
             >
               <RotateCcw className="w-4 h-4 text-[#3E83A8]" />
               <span>Nueva observación</span>
@@ -175,7 +199,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
           </div>
         </div>
 
-        {/* Destacado: Recordatorio Ético de No Diagnóstico */}
+        {/* Destacado: Recordatorio Ético y Metodológico */}
         <div className="p-5 rounded-2xl bg-[#F6E6CB] border border-[#e8d2ac] text-xs sm:text-sm text-[#65452A] flex items-start gap-3.5 shadow-soft-sm">
           <AlertTriangle className="w-5 h-5 text-[#65452A] shrink-0 mt-0.5" />
           <div className="leading-relaxed space-y-0.5">
@@ -191,10 +215,22 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
 
       {/* SECCIÓN 2: Niveles de Señal Detectados por Área (Borde Azul Primario #3E83A8) */}
       <div className="bg-[#FFFDF9] rounded-3xl border-2 border-[#3E83A8] shadow-soft-md p-6 sm:p-10 space-y-6">
-        <h3 className="font-display text-xl sm:text-2xl font-bold text-[#253444] flex items-center gap-2.5">
-          <BarChart3 className="w-6 h-6 text-[#3E83A8]" />
-          Niveles de Señal Detectados por Área
-        </h3>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h3 className="font-display text-xl sm:text-2xl font-bold text-[#253444] flex items-center gap-2.5">
+            <BarChart3 className="w-6 h-6 text-[#3E83A8]" />
+            Niveles de Señal Detectados por Área
+          </h3>
+          {onOpenReferences && (
+            <button
+              type="button"
+              onClick={onOpenReferences}
+              className="text-xs font-bold text-[#3E83A8] hover:underline flex items-center gap-1 cursor-pointer"
+            >
+              <BookOpenCheck className="w-4 h-4" />
+              <span>Ver baremos y referencias</span>
+            </button>
+          )}
+        </div>
 
         <div className="grid gap-5 sm:grid-cols-3">
           {resultados.map((res) => {
@@ -215,7 +251,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
                   {/* Visual Intensity Bar */}
                   <div className="mb-4">
                     <div className="flex justify-between text-xs text-[#576574] mb-1.5 font-bold">
-                      <span>Intensidad estimada:</span>
+                      <span>Puntaje: {res.puntaje_total || 0} pts</span>
                       <span className="text-[#253444]">{intensity.percentage}%</span>
                     </div>
                     <div className="w-full bg-[#E4EEF6] rounded-full h-2.5 overflow-hidden">
@@ -235,7 +271,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
                 <div className="pt-3.5 border-t border-[#D4DFEB] text-xs text-[#576574] flex items-start gap-2">
                   <BookOpenCheck className="w-4 h-4 text-[#3E83A8] shrink-0 mt-0.5" />
                   <span className="italic font-medium">
-                    {res.fuente || 'Vizcarra & Terán (2018), intervención educativa'}
+                    {res.fuente || 'Vizcarra & Terán (2018); Defior & Serrano (2014); Butterworth (2019)'}
                   </span>
                 </div>
               </div>
@@ -311,80 +347,196 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
         </div>
       )}
 
-      {/* SECCIÓN 4: Próximos Pasos (Borde Verde Menta #52b380) */}
+      {/* SECCIÓN 4: Plan de Intervención en 3 Bloques (Borde Verde Menta #52b380) */}
       <div className="bg-[#FFFDF9] rounded-3xl border-2 border-[#52b380] shadow-soft-md p-6 sm:p-10 space-y-6">
         <div>
           <h3 className="font-display text-xl sm:text-2xl font-bold text-[#253444] flex items-center gap-2.5">
             <CheckCircle2 className="w-6 h-6 text-[#1C463C]" />
-            Próximos Pasos: Acciones Inmediatas de Apoyo
+            Plan de Intervención Diferenciado (3 Niveles)
           </h3>
           <p className="text-xs sm:text-sm text-[#576574] mt-1 font-semibold">
-            Estrategias pedagógicas aplicables inmediatamente en la escuela y el hogar sin esperar un diagnóstico formal.
+            Pautas basadas en evidencia científica para el aula, la familia y el gabinete psicopedagógico (Excel 2).
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6 pt-2">
-          {/* Columna Aula */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2.5 pb-3 border-b border-[#D4DFEB]">
-              <div className="w-9 h-9 rounded-2xl bg-[#CAEFDD] text-[#1C463C] flex items-center justify-center shadow-soft-sm">
-                <GraduationCap className="w-5 h-5 text-[#0D4233]" />
-              </div>
-              <h4 className="font-display font-bold text-base sm:text-lg text-[#253444]">Para el Aula (Docentes)</h4>
-            </div>
+        {/* 3-Tier Tab Selector */}
+        <div className="grid grid-cols-3 gap-2 bg-[#F9F7EE] p-1.5 rounded-2xl border border-[#D4DFEB]">
+          <button
+            type="button"
+            onClick={() => setTabPlan('aula')}
+            className={`py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              tabPlan === 'aula'
+                ? 'bg-[#CAEFDD] text-[#0D4233] shadow-soft-xs'
+                : 'text-[#576574] hover:bg-[#E4EEF6]'
+            }`}
+          >
+            <GraduationCap className="w-4 h-4" />
+            <span>1. Escuela / Aula ({sugerenciasAula.length})</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setTabPlan('casa')}
+            className={`py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              tabPlan === 'casa'
+                ? 'bg-[#C2E4F8] text-[#12415E] shadow-soft-xs'
+                : 'text-[#576574] hover:bg-[#E4EEF6]'
+            }`}
+          >
+            <Home className="w-4 h-4" />
+            <span>2. Familia / Hogar ({sugerenciasCasa.length})</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setTabPlan('profesional')}
+            className={`py-2.5 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              tabPlan === 'profesional'
+                ? 'bg-[#DFD5F5] text-[#483962] shadow-soft-xs'
+                : 'text-[#576574] hover:bg-[#E4EEF6]'
+            }`}
+          >
+            <Stethoscope className="w-4 h-4" />
+            <span>3. Profesional ({sugerenciasProfesional.length})</span>
+          </button>
+        </div>
 
-            <div className="space-y-3.5">
-              {sugerenciasAula.length > 0 ? (
-                sugerenciasAula.map((sug) => (
-                  <div key={sug.id_sugerencia} className="p-4 rounded-2xl bg-[#E4EEF6]/60 border border-[#D4DFEB] text-xs sm:text-sm space-y-1.5 shadow-soft-sm">
-                    <p className="font-bold text-[#253444]">{sug.sugerencia}</p>
-                    <p className="text-[#576574] leading-relaxed">{sug.detalle}</p>
-                    {sug.fuente && (
-                      <p className="text-[11px] text-[#3E83A8] italic font-semibold">Fuente: {sug.fuente}</p>
-                    )}
+        {/* Tab Content List */}
+        <div className="space-y-3.5 pt-1">
+          {tabPlan === 'aula' && (
+            <div className="grid sm:grid-cols-2 gap-3.5">
+              {sugerenciasAula.map((sug) => (
+                <div key={sug.id_sugerencia} className="p-4 rounded-2xl bg-[#E4EEF6]/60 border border-[#D4DFEB] text-xs sm:text-sm space-y-1.5 shadow-soft-sm">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#CAEFDD] text-[#0D4233]">
+                      {sug.categoria} • {sug.nivel}
+                    </span>
                   </div>
-                ))
-              ) : (
-                <div className="p-4 rounded-2xl bg-[#E4EEF6]/60 border border-[#D4DFEB] text-xs sm:text-sm space-y-1">
-                  <p className="font-bold text-[#253444]">Ubicación estratégica y consignas fragmentadas</p>
-                  <p className="text-[#576574] leading-relaxed">Ubicar al estudiante con buena visibilidad al pizarrón y estructurar las instrucciones paso a paso.</p>
+                  <p className="font-bold text-[#253444]">{sug.sugerencia}</p>
+                  <p className="text-[#576574] leading-relaxed">{sug.detalle}</p>
+                  {sug.fuente && (
+                    <p className="text-[11px] text-[#3E83A8] italic font-semibold pt-1 border-t border-[#D4DFEB]/60">
+                      Fuente: {sug.fuente}
+                    </p>
+                  )}
                 </div>
-              )}
+              ))}
             </div>
-          </div>
+          )}
 
-          {/* Columna Casa */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2.5 pb-3 border-b border-[#D4DFEB]">
-              <div className="w-9 h-9 rounded-2xl bg-[#C2E4F8] text-[#12415E] flex items-center justify-center shadow-soft-sm">
-                <Home className="w-5 h-5 text-[#12415E]" />
-              </div>
-              <h4 className="font-display font-bold text-base sm:text-lg text-[#253444]">Para el Hogar (Familias)</h4>
-            </div>
-
-            <div className="space-y-3.5">
-              {sugerenciasCasa.length > 0 ? (
-                sugerenciasCasa.map((sug) => (
-                  <div key={sug.id_sugerencia} className="p-4 rounded-2xl bg-[#E4EEF6]/60 border border-[#D4DFEB] text-xs sm:text-sm space-y-1.5 shadow-soft-sm">
-                    <p className="font-bold text-[#253444]">{sug.sugerencia}</p>
-                    <p className="text-[#576574] leading-relaxed">{sug.detalle}</p>
-                    {sug.fuente && (
-                      <p className="text-[11px] text-[#3E83A8] italic font-semibold">Fuente: {sug.fuente}</p>
-                    )}
+          {tabPlan === 'casa' && (
+            <div className="grid sm:grid-cols-2 gap-3.5">
+              {sugerenciasCasa.map((sug) => (
+                <div key={sug.id_sugerencia} className="p-4 rounded-2xl bg-[#E4EEF6]/60 border border-[#D4DFEB] text-xs sm:text-sm space-y-1.5 shadow-soft-sm">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#C2E4F8] text-[#12415E]">
+                      {sug.categoria} • {sug.nivel}
+                    </span>
                   </div>
-                ))
-              ) : (
-                <div className="p-4 rounded-2xl bg-[#E4EEF6]/60 border border-[#D4DFEB] text-xs sm:text-sm space-y-1">
-                  <p className="font-bold text-[#253444]">Estructuración y refuerzo positivo</p>
-                  <p className="text-[#576574] leading-relaxed">Establecer rutinas estables con pausas activas y reforzar el esfuerzo constante.</p>
+                  <p className="font-bold text-[#253444]">{sug.sugerencia}</p>
+                  <p className="text-[#576574] leading-relaxed">{sug.detalle}</p>
+                  {sug.fuente && (
+                    <p className="text-[11px] text-[#3E83A8] italic font-semibold pt-1 border-t border-[#D4DFEB]/60">
+                      Fuente: {sug.fuente}
+                    </p>
+                  )}
                 </div>
-              )}
+              ))}
             </div>
-          </div>
+          )}
+
+          {tabPlan === 'profesional' && (
+            <div className="grid sm:grid-cols-2 gap-3.5">
+              {sugerenciasProfesional.map((sug) => (
+                <div key={sug.id_sugerencia} className="p-4 rounded-2xl bg-[#E4EEF6]/60 border border-[#D4DFEB] text-xs sm:text-sm space-y-1.5 shadow-soft-sm">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#DFD5F5] text-[#483962]">
+                      {sug.categoria} • {sug.nivel}
+                    </span>
+                  </div>
+                  <p className="font-bold text-[#253444]">{sug.sugerencia}</p>
+                  <p className="text-[#576574] leading-relaxed">{sug.detalle}</p>
+                  {sug.fuente && (
+                    <p className="text-[11px] text-[#3E83A8] italic font-semibold pt-1 border-t border-[#D4DFEB]/60">
+                      Fuente: {sug.fuente}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      {/* SECCIÓN 5: Asistente Pedagógico con IA (Borde Ámbar #d97706) */}
+      {/* SECCIÓN 5: Caja de Herramientas TCC (Borde Azul Océano #3E83A8) */}
+      <div className="bg-[#FFFDF9] rounded-3xl border-2 border-[#3E83A8] shadow-soft-md p-6 sm:p-10 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#D4DFEB]">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-[#C2E4F8] text-[#12415E] flex items-center justify-center shadow-soft-sm">
+              <Wrench className="w-5 h-5 text-[#12415E]" />
+            </div>
+            <div>
+              <h3 className="font-display text-lg sm:text-xl font-bold text-[#253444]">
+                Caja de Herramientas TCC y Estrategias Prácticas
+              </h3>
+              <p className="text-xs text-[#576574] font-semibold">
+                Técnicas cognitivo-conductuales y pedagógicas para la autorregulación y el aprendizaje (Excel 4)
+              </p>
+            </div>
+          </div>
+          <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#E4EEF6] text-[#12415E] self-start sm:self-center">
+            {MOCK_HERRAMIENTAS_TCC.length} técnicas
+          </span>
+        </div>
+
+        <div className="grid gap-3.5">
+          {MOCK_HERRAMIENTAS_TCC.map((herramienta) => {
+            const isExpanded = herramientaExpandida === herramienta.id_herramienta;
+            return (
+              <div
+                key={herramienta.id_herramienta}
+                className="p-4 rounded-2xl bg-white border border-[#D4DFEB] hover:border-[#6BA7C9] transition-all shadow-soft-xs space-y-2"
+              >
+                <button
+                  type="button"
+                  onClick={() => setHerramientaExpandida(isExpanded ? null : herramienta.id_herramienta)}
+                  className="w-full text-left flex items-center justify-between gap-3 cursor-pointer"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-[#DFD5F5] text-[#483962]">
+                      {herramienta.categoria}
+                    </span>
+                    <h4 className="font-bold text-sm text-[#253444] hover:text-[#3E83A8] transition-colors">
+                      {herramienta.tecnica}
+                    </h4>
+                  </div>
+                  <div className="text-[#576574] shrink-0">
+                    {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  </div>
+                </button>
+
+                <p className="text-xs text-[#576574] leading-relaxed">
+                  {herramienta.descripcion}
+                </p>
+
+                {isExpanded && (
+                  <div className="pt-3 mt-2 border-t border-[#D4DFEB]/80 space-y-2.5 text-xs bg-[#F9F7EE] p-3.5 rounded-xl animate-fade-in">
+                    <div>
+                      <strong className="text-[#253444] block mb-1">🛠️ Aplicación práctica paso a paso:</strong>
+                      <p className="text-[#253444] leading-relaxed">{herramienta.aplicacion_practica}</p>
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#D4DFEB]/60 text-[11px] text-[#576574]">
+                      <span><strong>Dirigido a:</strong> {herramienta.dirigido_a}</span>
+                      <span className="italic font-semibold text-[#3E83A8]">Fuente: {herramienta.fuente}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* SECCIÓN 6: Asistente Pedagógico con IA (Borde Ámbar #d97706) */}
       <div className="bg-[#FFFDF9] rounded-3xl border-2 border-[#d97706] shadow-soft-md p-6 sm:p-10 space-y-5">
         <div className="flex items-center gap-3 pb-3 border-b border-[#D4DFEB]">
           <div className="w-10 h-10 rounded-2xl bg-[#F6E6CB] text-[#65452A] flex items-center justify-center shadow-soft-sm">
@@ -403,9 +555,9 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
         {/* Sugerencias Rápidas de Pregunta */}
         <div className="flex flex-wrap gap-2 pt-1">
           {[
-            '¿Qué actividades visuales de 10 min recomiendas?',
-            '¿Cómo evaluar en matemáticas sin generar frustración?',
-            '¿Cómo estructurar la lectura compartida?'
+            '¿Cómo aplicar el método de autoinstrucciones?',
+            '¿Qué adaptaciones sugeridas para dislexia en aula?',
+            '¿Cómo estructurar una economía de fichas?'
           ].map((sug, i) => (
             <button
               key={i}
@@ -474,7 +626,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
         </div>
       </div>
 
-      {/* SECCIÓN 6: Tarjeta de Derivación Destacada (Borde Menta Suave #CAEFDD) */}
+      {/* SECCIÓN 7: Tarjeta de Derivación Destacada (Borde Menta Suave #CAEFDD) */}
       <div className="bg-[#253444] rounded-3xl border-2 border-[#CAEFDD] p-7 sm:p-9 text-[#F5FBFF] shadow-soft-lg flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="space-y-2 text-center sm:text-left">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#3E83A8] text-[#F5FBFF] text-xs font-bold">

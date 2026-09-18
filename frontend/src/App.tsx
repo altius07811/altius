@@ -17,11 +17,13 @@ import { ConsentScreen } from './components/ConsentScreen';
 import { SurveyScreen } from './components/SurveyScreen';
 import { ResultsScreen } from './components/ResultsScreen';
 import { ReferralScreen } from './components/ReferralScreen';
+import { ScientificReferencesModal } from './components/ScientificReferencesModal';
 
 export const App: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<ScreenType>('welcome');
   const [rol, setRol] = useState<RolEncuestado>('docente');
   const [studentCode, setStudentCode] = useState<string>('EST-2026');
+  const [showReferencesModal, setShowReferencesModal] = useState<boolean>(false);
   
   // Data state
   const [preguntas, setPreguntas] = useState<PreguntaEncuesta[]>([]);
@@ -84,7 +86,11 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F9F7EE] text-[#253444] font-sans selection:bg-[#C2E4F8] selection:text-[#12415E]">
-      <Header currentScreen={currentScreen} onNavigate={setCurrentScreen} />
+      <Header 
+        currentScreen={currentScreen} 
+        onNavigate={setCurrentScreen} 
+        onOpenReferences={() => setShowReferencesModal(true)}
+      />
 
       <main className="flex-1 pb-10">
         {currentScreen === 'welcome' && (
@@ -123,6 +129,7 @@ export const App: React.FC = () => {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onRestart={handleRestart}
+            onOpenReferences={() => setShowReferencesModal(true)}
           />
         )}
 
@@ -137,7 +144,13 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      <Footer />
+      <Footer onOpenReferences={() => setShowReferencesModal(true)} />
+
+      {/* Modal de Marco Científico y Referencias Bibliográficas */}
+      <ScientificReferencesModal
+        isOpen={showReferencesModal}
+        onClose={() => setShowReferencesModal(false)}
+      />
     </div>
   );
 };

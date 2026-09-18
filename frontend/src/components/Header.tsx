@@ -1,13 +1,14 @@
 import React from 'react';
-import { Sparkles, Compass, ShieldCheck } from 'lucide-react';
+import { Sparkles, Compass, ShieldCheck, BookOpen } from 'lucide-react';
 import { ScreenType } from '../types';
 
 interface HeaderProps {
   currentScreen: ScreenType;
   onNavigate: (screen: ScreenType) => void;
+  onOpenReferences?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ currentScreen, onNavigate }) => {
+export const Header: React.FC<HeaderProps> = ({ currentScreen, onNavigate, onOpenReferences }) => {
   return (
     <header className="bg-[#FFFDF9]/90 backdrop-blur-md border-b border-[#D4DFEB] sticky top-0 z-40">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between">
@@ -31,9 +32,21 @@ export const Header: React.FC<HeaderProps> = ({ currentScreen, onNavigate }) => 
         </button>
 
         {/* Status / Quick Links */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          {onOpenReferences && (
+            <button
+              type="button"
+              onClick={onOpenReferences}
+              className="text-xs font-bold text-[#483962] bg-[#DFD5F5] hover:bg-[#d0c2ee] px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-soft-xs"
+              title="Consultar respaldo científico y fuentes académicas"
+            >
+              <BookOpen className="w-4 h-4 text-[#483962]" />
+              <span className="hidden sm:inline">Marco Científico</span>
+            </button>
+          )}
+
           {currentScreen !== 'welcome' && (
-            <div className="hidden sm:flex items-center gap-1.5 text-xs text-[#1C463C] bg-[#CAEFDD] px-3.5 py-1.5 rounded-full font-semibold">
+            <div className="hidden md:flex items-center gap-1.5 text-xs text-[#1C463C] bg-[#CAEFDD] px-3.5 py-1.5 rounded-full font-semibold">
               <ShieldCheck className="w-4 h-4 text-[#0D4233]" />
               <span>Espacio confidencial</span>
             </div>
@@ -41,10 +54,10 @@ export const Header: React.FC<HeaderProps> = ({ currentScreen, onNavigate }) => 
           {currentScreen === 'results' && (
             <button
               onClick={() => onNavigate('referral')}
-              className="text-xs font-bold text-[#12415E] bg-[#C2E4F8] hover:bg-[#a6d8f6] px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-soft-sm"
+              className="text-xs font-bold text-[#12415E] bg-[#C2E4F8] hover:bg-[#a6d8f6] px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-soft-sm"
             >
               <Sparkles className="w-4 h-4 text-[#12415E]" />
-              <span>Directorio de apoyo</span>
+              <span>Directorio</span>
             </button>
           )}
         </div>

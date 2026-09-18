@@ -240,46 +240,24 @@ async function main() {
     ]
   });
 
-  // 5. Sugerencias Educativas
+  // 5. Sugerencias Educativas (Leer las 27 sugerencias de Excel_2_Reglas_y_Sugerencias.xlsx)
+  const excel2Path = path.resolve(__dirname, '../../Excel_2_Reglas_y_Sugerencias.xlsx');
+  const wb2 = XLSX.readFile(excel2Path);
+  const rawSugerencias: any[] = XLSX.utils.sheet_to_json(wb2.Sheets['Sugerencias']);
+  console.log(`📄 Leyendo ${rawSugerencias.length} sugerencias de Excel 2...`);
+
+  const sugerenciasData = rawSugerencias.map((s, idx) => ({
+    id_sugerencia: `SUG_${s.categoria}_${idx + 1}`,
+    categoria: s.categoria,
+    nivel: s.nivel || 'Moderada',
+    contexto: s.contexto || 'aula',
+    sugerencia: s.sugerencia,
+    detalle: s.detalle,
+    fuente: s.fuente || 'Defior & Serrano (2014)'
+  }));
+
   await prisma.sugerencia.createMany({
-    data: [
-      {
-        id_sugerencia: 'SUG_TDAH_01',
-        categoria: 'TDAH',
-        nivel: 'Moderada',
-        contexto: 'aula',
-        sugerencia: 'Ubicación estratégica y consignas cortas',
-        detalle: 'Sentar al estudiante en las primeras filas, reduciendo distractores visuales y dividiendo tareas en pasos breves con verificación.',
-        fuente: 'Vizcarra & Terán (2018)'
-      },
-      {
-        id_sugerencia: 'SUG_TDAH_02',
-        categoria: 'TDAH',
-        nivel: 'Moderada',
-        contexto: 'casa',
-        sugerencia: 'Cronogramas visuales y pausas activas',
-        detalle: 'Establecer rutinas fijas con temporizadores visibles y descansos breves de movimiento entre tareas escolares.',
-        fuente: 'Barkley (2020)'
-      },
-      {
-        id_sugerencia: 'SUG_DISL_01',
-        categoria: 'Dislexia',
-        nivel: 'Moderada',
-        contexto: 'aula',
-        sugerencia: 'Apoyo multimodal y tiempo extendido',
-        detalle: 'Permitir apoyos auditivos o visuales, fuentes legibles (sans-serif amplias) y no penalizar la velocidad de lectura.',
-        fuente: 'Defior & Serrano (2014)'
-      },
-      {
-        id_sugerencia: 'SUG_DISC_01',
-        categoria: 'Discalculia',
-        nivel: 'Moderada',
-        contexto: 'aula',
-        sugerencia: 'Material concreto y cuadrícula grande',
-        detalle: 'Facilitar ábacos, fichas y papel milimetrado para afianzar el valor posicional de las cantidades.',
-        fuente: 'Butterworth (2019)'
-      }
-    ]
+    data: sugerenciasData
   });
 
   console.log('✅ Siembra desde Excels completada con éxito!');

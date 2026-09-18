@@ -83,3 +83,46 @@ export interface AnalisisPedagogicoIA {
   recomendacion_derivacion: string;
   modelo_utilizado?: string;
 }
+
+export interface HerramientaTCCItem {
+  id_herramienta: string;
+  categoria: string;
+  tecnica: string;
+  descripcion: string;
+  aplicacion_practica: string;
+  dirigido_a: string;
+  fuente: string;
+}
+
+export interface PerfilInterpretacionItem {
+  id_perfil: string;
+  categoria: string;
+  perfil_resultado: string;
+  criterio_clasificacion: string;
+  interpretacion_app: string;
+  plan_profesional: string;
+  plan_padres: string;
+  plan_escuela_institucion: string;
+  fuente: string;
+}
+
+export interface ReglaGeneralItem {
+  id_regla: string;
+  categoria: string;
+  regla: string;
+  condicion: string;
+  que_hace_la_app: string;
+  fuente: string;
+}
+
+export interface ReferenciaCientificaItem {
+  id: string;
+  categoria: string;
+  autores: string;
+  ano: number;
+  titulo: string;
+  revista: string;
+  doi: string;
+  resumen: string;
+}
+

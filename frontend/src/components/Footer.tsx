@@ -1,7 +1,11 @@
 import React from 'react';
 import { AlertTriangle, BookOpenCheck, HeartHandshake } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenReferences?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenReferences }) => {
   return (
     <footer className="bg-[#FFFDF9] border-t border-[#D4DFEB] mt-auto py-8">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
@@ -15,10 +19,21 @@ export const Footer: React.FC = () => {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-[#576574]">
           <div className="flex flex-wrap items-center gap-4">
-            <span className="flex items-center gap-1.5 font-semibold text-[#253444]">
-              <BookOpenCheck className="w-4 h-4 text-[#3E83A8]" />
-              Literatura científica curada
-            </span>
+            {onOpenReferences ? (
+              <button
+                type="button"
+                onClick={onOpenReferences}
+                className="flex items-center gap-1.5 font-bold text-[#3E83A8] hover:text-[#326E8F] underline decoration-dotted transition-colors cursor-pointer"
+              >
+                <BookOpenCheck className="w-4 h-4 text-[#3E83A8]" />
+                <span>Marco Científico y Fuentes (APA / DOI)</span>
+              </button>
+            ) : (
+              <span className="flex items-center gap-1.5 font-semibold text-[#253444]">
+                <BookOpenCheck className="w-4 h-4 text-[#3E83A8]" />
+                Literatura científica curada
+              </span>
+            )}
             <span className="flex items-center gap-1.5 font-semibold text-[#1C463C]">
               <HeartHandshake className="w-4 h-4 text-[#1C463C]" />
               Inclusión escolar Bolivia

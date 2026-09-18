@@ -26,7 +26,7 @@ export const generarSintesisPedagogicaIA = async (
     .map((r) => `- ${r.categoria}: ${r.nivel} (Puntaje: ${r.puntaje_total})`)
     .join('\n');
 
-  const prompt = `Eres un Psicopedagogo Consultor Senior y experto en Educación Inclusiva para unidades educativas en Bolivia.
+  const prompt = `Eres un Psicopedagogo Consultor Senior y experto en Educación Inclusiva en Bolivia, fundamentado en la evidencia de detección temprana (DSM-5, PROLEC-R, TEDI-MATH, Barkley, Defior).
 Analiza la siguiente observación pedagógica preliminar realizada por un ${rol || 'docente'} para el estudiante con código "${estudiante_id}":
 
 NIVELES DE SEÑAL DETECTADOS:
@@ -36,21 +36,22 @@ OBSERVACIONES CUALITATIVAS INGRESADAS EN EL AULA/HOGAR:
 "${observaciones || 'No se ingresaron observaciones adicionales.'}"
 
 INSTRUCCIONES ÉTICAS Y TÉCNICAS:
-1. Recuerda que esto NO es un diagnóstico clínico. Es una orientación formativa y pedagógica.
-2. Redacta de forma empática, respetuosa, constructiva y aplicable a la realidad escolar boliviana.
-3. Devuelve EXCLUSIVAMENTE un objeto JSON válido con la siguiente estructura (sin texto adicional fuera del JSON):
+1. Recuerda que esto es cribado formativo preliminar, NO un diagnóstico clínico.
+2. Integra técnicas cognitivo-conductuales (TCC) y pedagógicas prácticas (ej. entrenamiento en autoinstrucciones "Paro-Pienso-Elijo-Actúo", adaptaciones multisensoriales VAKT, estructuración con apoyos visuales).
+3. Adapta las recomendaciones a la realidad escolar y familiar boliviana (lenguaje accesible, sin estigmatizar, considerando diversidad lingüística y curricular).
+4. Devuelve EXCLUSIVAMENTE un objeto JSON válido con la siguiente estructura (sin texto adicional fuera del JSON):
 
 {
-  "resumen_cualitativo": "Breve síntesis de 2-3 oraciones sobre el perfil de aprendizaje observado.",
+  "resumen_cualitativo": "Breve síntesis de 2-3 oraciones sobre el perfil de aprendizaje observado y fortalezas detectadas.",
   "estrategias_aula": [
-    { "titulo": "Nombre de la estrategia didáctica", "descripcion": "Explicación práctica paso a paso para el docente." },
-    { "titulo": "Nombre de la segunda estrategia", "descripcion": "Explicación práctica." }
+    { "titulo": "Nombre de la estrategia didáctica", "descripcion": "Explicación práctica paso a paso para el docente en el aula." },
+    { "titulo": "Nombre de la segunda estrategia", "descripcion": "Explicación didáctica práctica." }
   ],
   "estrategias_casa": [
-    { "titulo": "Nombre de la pauta familiar", "descripcion": "Recomendación cotidiana para padres/madres." },
-    { "titulo": "Nombre de la segunda pauta", "descripcion": "Recomendación cotidiana." }
+    { "titulo": "Nombre de la pauta familiar", "descripcion": "Recomendación cotidiana estructurada para padres/madres." },
+    { "titulo": "Nombre de la segunda pauta", "descripcion": "Recomendación familiar positiva." }
   ],
-  "recomendacion_derivacion": "Pauta clara sobre cuándo acudir al gabinete psicopedagógico escolar o centro de salud integral."
+  "recomendacion_derivacion": "Pauta clara sobre seguimiento con gabinete psicopedagógico escolar o centro de educación especial/salud integral."
 }`;
 
   try {
