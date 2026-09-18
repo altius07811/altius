@@ -75,72 +75,74 @@ export const ScientificReferencesModal: React.FC<ScientificReferencesModalProps>
           </button>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="px-4 sm:px-6 py-3 border-b border-[#D4DFEB] bg-[#F9F7EE] flex flex-wrap gap-2 shrink-0">
-          <button
-            type="button"
-            onClick={() => setTabActiva('referencias')}
-            className={`px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer ${
-              tabActiva === 'referencias'
-                ? 'bg-[#3E83A8] text-[#F5FBFF] shadow-soft-xs'
-                : 'bg-white border border-[#D4DFEB] text-[#576574] hover:bg-[#E4EEF6] hover:text-[#253444]'
-            }`}
-          >
-            <span>📚 Biblioteca de Referencias</span>
-            <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
-              tabActiva === 'referencias' ? 'bg-white/20 text-[#F5FBFF]' : 'bg-[#E4EEF6] text-[#12415E]'
-            }`}>
-              {MOCK_REFERENCIAS_CIENTIFICAS.length}
-            </span>
-          </button>
+        {/* Tab Navigation con amplio espacio y distribución balanceada */}
+        <div className="px-5 sm:px-8 py-4 border-b border-[#D4DFEB] bg-[#F9F7EE] shrink-0">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button
+              type="button"
+              onClick={() => setTabActiva('referencias')}
+              className={`py-3 px-4 rounded-2xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-soft-xs text-center ${
+                tabActiva === 'referencias'
+                  ? 'bg-[#3E83A8] text-[#F5FBFF] ring-2 ring-[#3E83A8]/30 shadow-soft-sm'
+                  : 'bg-white border-2 border-[#D4DFEB] text-[#576574] hover:bg-[#E4EEF6] hover:border-[#6BA7C9] hover:text-[#253444]'
+              }`}
+            >
+              <span>📚 Biblioteca de Referencias</span>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                tabActiva === 'referencias' ? 'bg-white/20 text-[#F5FBFF]' : 'bg-[#E4EEF6] text-[#12415E]'
+              }`}>
+                {MOCK_REFERENCIAS_CIENTIFICAS.length}
+              </span>
+            </button>
 
-          <button
-            type="button"
-            onClick={() => setTabActiva('metodologia')}
-            className={`px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer ${
-              tabActiva === 'metodologia'
-                ? 'bg-[#3E83A8] text-[#F5FBFF] shadow-soft-xs'
-                : 'bg-white border border-[#D4DFEB] text-[#576574] hover:bg-[#E4EEF6] hover:text-[#253444]'
-            }`}
-          >
-            <span>⚖️ Criterios Metodológicos & Bolivia</span>
-          </button>
+            <button
+              type="button"
+              onClick={() => setTabActiva('metodologia')}
+              className={`py-3 px-4 rounded-2xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer shadow-soft-xs text-center ${
+                tabActiva === 'metodologia'
+                  ? 'bg-[#3E83A8] text-[#F5FBFF] ring-2 ring-[#3E83A8]/30 shadow-soft-sm'
+                  : 'bg-white border-2 border-[#D4DFEB] text-[#576574] hover:bg-[#E4EEF6] hover:border-[#6BA7C9] hover:text-[#253444]'
+              }`}
+            >
+              <span>⚖️ Criterios Metodológicos & Bolivia</span>
+            </button>
 
-          <button
-            type="button"
-            onClick={() => setTabActiva('reglas')}
-            className={`px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer ${
-              tabActiva === 'reglas'
-                ? 'bg-[#3E83A8] text-[#F5FBFF] shadow-soft-xs'
-                : 'bg-white border border-[#D4DFEB] text-[#576574] hover:bg-[#E4EEF6] hover:text-[#253444]'
-            }`}
-          >
-            <span>🛡️ Reglas Clínicas</span>
-            <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
-              tabActiva === 'reglas' ? 'bg-white/20 text-[#F5FBFF]' : 'bg-[#E4EEF6] text-[#12415E]'
-            }`}>
-              {MOCK_REGLAS_GENERALES.length}
-            </span>
-          </button>
+            <button
+              type="button"
+              onClick={() => setTabActiva('reglas')}
+              className={`py-3 px-4 rounded-2xl font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-soft-xs text-center ${
+                tabActiva === 'reglas'
+                  ? 'bg-[#3E83A8] text-[#F5FBFF] ring-2 ring-[#3E83A8]/30 shadow-soft-sm'
+                  : 'bg-white border-2 border-[#D4DFEB] text-[#576574] hover:bg-[#E4EEF6] hover:border-[#6BA7C9] hover:text-[#253444]'
+              }`}
+            >
+              <span>🛡️ Reglas Clínicas</span>
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                tabActiva === 'reglas' ? 'bg-white/20 text-[#F5FBFF]' : 'bg-[#E4EEF6] text-[#12415E]'
+              }`}>
+                {MOCK_REGLAS_GENERALES.length}
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Content Body */}
-        <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-4">
+        <div className="p-5 sm:p-8 overflow-y-auto flex-1 space-y-5">
           {/* TAB 1: REFERENCIAS */}
           {tabActiva === 'referencias' && (
-            <div className="space-y-4">
+            <div className="space-y-5">
               {/* Filter bar */}
-              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between pb-2 border-b border-[#D4DFEB]">
-                <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between pb-3 border-b border-[#D4DFEB]">
+                <div className="flex flex-wrap gap-2">
                   {['Todas', 'TDAH', 'Dislexia', 'Discalculia', 'TCC y Pedagogía'].map((cat) => (
                     <button
                       key={cat}
                       type="button"
                       onClick={() => setFiltroCategoria(cat)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                         filtroCategoria === cat
-                          ? 'bg-[#3E83A8] text-[#F5FBFF] shadow-soft-xs'
-                          : 'bg-[#E4EEF6] text-[#253444] hover:bg-[#C2E4F8]'
+                          ? 'bg-[#3E83A8] text-[#F5FBFF] shadow-soft-xs ring-2 ring-[#3E83A8]/20'
+                          : 'bg-[#E4EEF6] text-[#253444] hover:bg-[#C2E4F8] hover:text-[#12415E]'
                       }`}
                     >
                       {cat}
