@@ -649,8 +649,9 @@ export const SurveyScreen: React.FC<SurveyScreenProps> = ({
         {/* Likert Options */}
         {currentPregunta.tipo_pregunta === 'opcion_multiple' && currentPregunta.opciones && (
           <div className="space-y-3 pt-2">
-            {currentPregunta.opciones.map((opc) => {
+            {currentPregunta.opciones.map((opc, idx) => {
               const isSelected = currentAnswer?.opcionId === opc.id_opcion;
+              const scaleNumber = opc.orden_opcion || opc.peso || (idx + 1);
               return (
                 <button
                   key={opc.id_opcion}
@@ -662,7 +663,18 @@ export const SurveyScreen: React.FC<SurveyScreenProps> = ({
                       : 'bg-[#FFFDF9] border-[#D4DFEB] text-[#253444] hover:bg-[#E4EEF6]/60 hover:border-[#6BA7C9]'
                   }`}
                 >
-                  <span className="pr-4 leading-normal">{opc.texto_opcion}</span>
+                  <div className="flex items-center gap-3.5 pr-4">
+                    <span
+                      className={`w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs sm:text-sm shrink-0 transition-colors ${
+                        isSelected
+                          ? 'bg-[#3E83A8] text-[#F5FBFF]'
+                          : 'bg-[#E4EEF6] text-[#3E83A8]'
+                      }`}
+                    >
+                      {scaleNumber}
+                    </span>
+                    <span className="leading-normal">{opc.texto_opcion}</span>
+                  </div>
                   <div
                     className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
                       isSelected

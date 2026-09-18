@@ -14,30 +14,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_01_1",
         "id_pregunta": "TDAH_01",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_01_2",
         "id_pregunta": "TDAH_01",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_01_3",
         "id_pregunta": "TDAH_01",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_01_4",
         "id_pregunta": "TDAH_01",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_01_5",
+        "id_pregunta": "TDAH_01",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -54,30 +61,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_02_1",
         "id_pregunta": "TDAH_02",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_02_2",
         "id_pregunta": "TDAH_02",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_02_3",
         "id_pregunta": "TDAH_02",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_02_4",
         "id_pregunta": "TDAH_02",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_02_5",
+        "id_pregunta": "TDAH_02",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -94,30 +108,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_03_1",
         "id_pregunta": "TDAH_03",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_03_2",
         "id_pregunta": "TDAH_03",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_03_3",
         "id_pregunta": "TDAH_03",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_03_4",
         "id_pregunta": "TDAH_03",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_03_5",
+        "id_pregunta": "TDAH_03",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -134,30 +155,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_04_1",
         "id_pregunta": "TDAH_04",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_04_2",
         "id_pregunta": "TDAH_04",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_04_3",
         "id_pregunta": "TDAH_04",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_04_4",
         "id_pregunta": "TDAH_04",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_04_5",
+        "id_pregunta": "TDAH_04",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -174,30 +202,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_05_1",
         "id_pregunta": "TDAH_05",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_05_2",
         "id_pregunta": "TDAH_05",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_05_3",
         "id_pregunta": "TDAH_05",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_05_4",
         "id_pregunta": "TDAH_05",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_05_5",
+        "id_pregunta": "TDAH_05",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -214,30 +249,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_06_1",
         "id_pregunta": "TDAH_06",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_06_2",
         "id_pregunta": "TDAH_06",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_06_3",
         "id_pregunta": "TDAH_06",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_06_4",
         "id_pregunta": "TDAH_06",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_06_5",
+        "id_pregunta": "TDAH_06",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -254,30 +296,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_07_1",
         "id_pregunta": "TDAH_07",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_07_2",
         "id_pregunta": "TDAH_07",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_07_3",
         "id_pregunta": "TDAH_07",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_07_4",
         "id_pregunta": "TDAH_07",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_07_5",
+        "id_pregunta": "TDAH_07",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -294,30 +343,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_08_1",
         "id_pregunta": "TDAH_08",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_08_2",
         "id_pregunta": "TDAH_08",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_08_3",
         "id_pregunta": "TDAH_08",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_08_4",
         "id_pregunta": "TDAH_08",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_08_5",
+        "id_pregunta": "TDAH_08",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -334,30 +390,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_09_1",
         "id_pregunta": "TDAH_09",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_09_2",
         "id_pregunta": "TDAH_09",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_09_3",
         "id_pregunta": "TDAH_09",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_09_4",
         "id_pregunta": "TDAH_09",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_09_5",
+        "id_pregunta": "TDAH_09",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -374,30 +437,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_10_1",
         "id_pregunta": "TDAH_10",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_10_2",
         "id_pregunta": "TDAH_10",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_10_3",
         "id_pregunta": "TDAH_10",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_10_4",
         "id_pregunta": "TDAH_10",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_10_5",
+        "id_pregunta": "TDAH_10",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -414,30 +484,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_11_1",
         "id_pregunta": "TDAH_11",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_11_2",
         "id_pregunta": "TDAH_11",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_11_3",
         "id_pregunta": "TDAH_11",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_11_4",
         "id_pregunta": "TDAH_11",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_11_5",
+        "id_pregunta": "TDAH_11",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -454,30 +531,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_12_1",
         "id_pregunta": "TDAH_12",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_12_2",
         "id_pregunta": "TDAH_12",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_12_3",
         "id_pregunta": "TDAH_12",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_12_4",
         "id_pregunta": "TDAH_12",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_12_5",
+        "id_pregunta": "TDAH_12",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -494,30 +578,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_13_1",
         "id_pregunta": "TDAH_13",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_13_2",
         "id_pregunta": "TDAH_13",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_13_3",
         "id_pregunta": "TDAH_13",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_13_4",
         "id_pregunta": "TDAH_13",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_13_5",
+        "id_pregunta": "TDAH_13",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -534,30 +625,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_14_1",
         "id_pregunta": "TDAH_14",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_14_2",
         "id_pregunta": "TDAH_14",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_14_3",
         "id_pregunta": "TDAH_14",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_14_4",
         "id_pregunta": "TDAH_14",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_14_5",
+        "id_pregunta": "TDAH_14",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -574,30 +672,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_15_1",
         "id_pregunta": "TDAH_15",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_15_2",
         "id_pregunta": "TDAH_15",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_15_3",
         "id_pregunta": "TDAH_15",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_15_4",
         "id_pregunta": "TDAH_15",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_15_5",
+        "id_pregunta": "TDAH_15",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -614,30 +719,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_16_1",
         "id_pregunta": "TDAH_16",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_16_2",
         "id_pregunta": "TDAH_16",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_16_3",
         "id_pregunta": "TDAH_16",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_16_4",
         "id_pregunta": "TDAH_16",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_16_5",
+        "id_pregunta": "TDAH_16",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -654,30 +766,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_17_1",
         "id_pregunta": "TDAH_17",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_17_2",
         "id_pregunta": "TDAH_17",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_17_3",
         "id_pregunta": "TDAH_17",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_17_4",
         "id_pregunta": "TDAH_17",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_17_5",
+        "id_pregunta": "TDAH_17",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -694,30 +813,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "TDAH_18_1",
         "id_pregunta": "TDAH_18",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "TDAH_18_2",
         "id_pregunta": "TDAH_18",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "TDAH_18_3",
         "id_pregunta": "TDAH_18",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "TDAH_18_4",
         "id_pregunta": "TDAH_18",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "TDAH_18_5",
+        "id_pregunta": "TDAH_18",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -756,30 +882,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_01_1",
         "id_pregunta": "DISL_01",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_01_2",
         "id_pregunta": "DISL_01",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_01_3",
         "id_pregunta": "DISL_01",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_01_4",
         "id_pregunta": "DISL_01",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_01_5",
+        "id_pregunta": "DISL_01",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -796,30 +929,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_02_1",
         "id_pregunta": "DISL_02",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_02_2",
         "id_pregunta": "DISL_02",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_02_3",
         "id_pregunta": "DISL_02",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_02_4",
         "id_pregunta": "DISL_02",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_02_5",
+        "id_pregunta": "DISL_02",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -836,30 +976,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_03_1",
         "id_pregunta": "DISL_03",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_03_2",
         "id_pregunta": "DISL_03",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_03_3",
         "id_pregunta": "DISL_03",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_03_4",
         "id_pregunta": "DISL_03",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_03_5",
+        "id_pregunta": "DISL_03",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -876,30 +1023,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_04_1",
         "id_pregunta": "DISL_04",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_04_2",
         "id_pregunta": "DISL_04",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_04_3",
         "id_pregunta": "DISL_04",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_04_4",
         "id_pregunta": "DISL_04",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_04_5",
+        "id_pregunta": "DISL_04",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -916,30 +1070,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_05_1",
         "id_pregunta": "DISL_05",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_05_2",
         "id_pregunta": "DISL_05",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_05_3",
         "id_pregunta": "DISL_05",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_05_4",
         "id_pregunta": "DISL_05",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_05_5",
+        "id_pregunta": "DISL_05",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -956,30 +1117,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_06_1",
         "id_pregunta": "DISL_06",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_06_2",
         "id_pregunta": "DISL_06",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_06_3",
         "id_pregunta": "DISL_06",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_06_4",
         "id_pregunta": "DISL_06",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_06_5",
+        "id_pregunta": "DISL_06",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -996,30 +1164,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_07_1",
         "id_pregunta": "DISL_07",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_07_2",
         "id_pregunta": "DISL_07",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_07_3",
         "id_pregunta": "DISL_07",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_07_4",
         "id_pregunta": "DISL_07",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_07_5",
+        "id_pregunta": "DISL_07",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1036,30 +1211,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_08_1",
         "id_pregunta": "DISL_08",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_08_2",
         "id_pregunta": "DISL_08",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_08_3",
         "id_pregunta": "DISL_08",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_08_4",
         "id_pregunta": "DISL_08",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_08_5",
+        "id_pregunta": "DISL_08",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1076,30 +1258,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_09_1",
         "id_pregunta": "DISL_09",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_09_2",
         "id_pregunta": "DISL_09",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_09_3",
         "id_pregunta": "DISL_09",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_09_4",
         "id_pregunta": "DISL_09",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_09_5",
+        "id_pregunta": "DISL_09",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1116,30 +1305,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_10_1",
         "id_pregunta": "DISL_10",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_10_2",
         "id_pregunta": "DISL_10",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_10_3",
         "id_pregunta": "DISL_10",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_10_4",
         "id_pregunta": "DISL_10",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_10_5",
+        "id_pregunta": "DISL_10",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1156,30 +1352,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_11_1",
         "id_pregunta": "DISL_11",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_11_2",
         "id_pregunta": "DISL_11",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_11_3",
         "id_pregunta": "DISL_11",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_11_4",
         "id_pregunta": "DISL_11",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_11_5",
+        "id_pregunta": "DISL_11",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1196,30 +1399,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_12_1",
         "id_pregunta": "DISL_12",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_12_2",
         "id_pregunta": "DISL_12",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_12_3",
         "id_pregunta": "DISL_12",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_12_4",
         "id_pregunta": "DISL_12",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_12_5",
+        "id_pregunta": "DISL_12",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1236,30 +1446,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_13_1",
         "id_pregunta": "DISL_13",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_13_2",
         "id_pregunta": "DISL_13",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_13_3",
         "id_pregunta": "DISL_13",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_13_4",
         "id_pregunta": "DISL_13",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_13_5",
+        "id_pregunta": "DISL_13",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1276,30 +1493,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_14_1",
         "id_pregunta": "DISL_14",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_14_2",
         "id_pregunta": "DISL_14",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_14_3",
         "id_pregunta": "DISL_14",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_14_4",
         "id_pregunta": "DISL_14",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_14_5",
+        "id_pregunta": "DISL_14",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1316,30 +1540,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_15_1",
         "id_pregunta": "DISL_15",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_15_2",
         "id_pregunta": "DISL_15",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_15_3",
         "id_pregunta": "DISL_15",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_15_4",
         "id_pregunta": "DISL_15",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_15_5",
+        "id_pregunta": "DISL_15",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1356,30 +1587,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_16_1",
         "id_pregunta": "DISL_16",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_16_2",
         "id_pregunta": "DISL_16",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_16_3",
         "id_pregunta": "DISL_16",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_16_4",
         "id_pregunta": "DISL_16",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_16_5",
+        "id_pregunta": "DISL_16",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1396,30 +1634,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_17_1",
         "id_pregunta": "DISL_17",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_17_2",
         "id_pregunta": "DISL_17",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_17_3",
         "id_pregunta": "DISL_17",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_17_4",
         "id_pregunta": "DISL_17",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_17_5",
+        "id_pregunta": "DISL_17",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1436,30 +1681,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISL_18_1",
         "id_pregunta": "DISL_18",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISL_18_2",
         "id_pregunta": "DISL_18",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISL_18_3",
         "id_pregunta": "DISL_18",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISL_18_4",
         "id_pregunta": "DISL_18",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISL_18_5",
+        "id_pregunta": "DISL_18",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1498,30 +1750,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_01_1",
         "id_pregunta": "DISC_01",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_01_2",
         "id_pregunta": "DISC_01",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_01_3",
         "id_pregunta": "DISC_01",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_01_4",
         "id_pregunta": "DISC_01",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_01_5",
+        "id_pregunta": "DISC_01",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1538,30 +1797,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_02_1",
         "id_pregunta": "DISC_02",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_02_2",
         "id_pregunta": "DISC_02",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_02_3",
         "id_pregunta": "DISC_02",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_02_4",
         "id_pregunta": "DISC_02",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_02_5",
+        "id_pregunta": "DISC_02",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1578,30 +1844,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_03_1",
         "id_pregunta": "DISC_03",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_03_2",
         "id_pregunta": "DISC_03",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_03_3",
         "id_pregunta": "DISC_03",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_03_4",
         "id_pregunta": "DISC_03",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_03_5",
+        "id_pregunta": "DISC_03",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1618,30 +1891,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_04_1",
         "id_pregunta": "DISC_04",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_04_2",
         "id_pregunta": "DISC_04",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_04_3",
         "id_pregunta": "DISC_04",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_04_4",
         "id_pregunta": "DISC_04",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_04_5",
+        "id_pregunta": "DISC_04",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1658,30 +1938,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_05_1",
         "id_pregunta": "DISC_05",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_05_2",
         "id_pregunta": "DISC_05",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_05_3",
         "id_pregunta": "DISC_05",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_05_4",
         "id_pregunta": "DISC_05",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_05_5",
+        "id_pregunta": "DISC_05",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1698,30 +1985,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_06_1",
         "id_pregunta": "DISC_06",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_06_2",
         "id_pregunta": "DISC_06",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_06_3",
         "id_pregunta": "DISC_06",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_06_4",
         "id_pregunta": "DISC_06",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_06_5",
+        "id_pregunta": "DISC_06",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1738,30 +2032,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_07_1",
         "id_pregunta": "DISC_07",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_07_2",
         "id_pregunta": "DISC_07",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_07_3",
         "id_pregunta": "DISC_07",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_07_4",
         "id_pregunta": "DISC_07",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_07_5",
+        "id_pregunta": "DISC_07",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1778,30 +2079,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_08_1",
         "id_pregunta": "DISC_08",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_08_2",
         "id_pregunta": "DISC_08",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_08_3",
         "id_pregunta": "DISC_08",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_08_4",
         "id_pregunta": "DISC_08",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_08_5",
+        "id_pregunta": "DISC_08",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1818,30 +2126,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_09_1",
         "id_pregunta": "DISC_09",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_09_2",
         "id_pregunta": "DISC_09",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_09_3",
         "id_pregunta": "DISC_09",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_09_4",
         "id_pregunta": "DISC_09",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_09_5",
+        "id_pregunta": "DISC_09",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1858,30 +2173,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_10_1",
         "id_pregunta": "DISC_10",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_10_2",
         "id_pregunta": "DISC_10",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_10_3",
         "id_pregunta": "DISC_10",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_10_4",
         "id_pregunta": "DISC_10",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_10_5",
+        "id_pregunta": "DISC_10",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1898,30 +2220,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_11_1",
         "id_pregunta": "DISC_11",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_11_2",
         "id_pregunta": "DISC_11",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_11_3",
         "id_pregunta": "DISC_11",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_11_4",
         "id_pregunta": "DISC_11",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_11_5",
+        "id_pregunta": "DISC_11",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1938,30 +2267,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_12_1",
         "id_pregunta": "DISC_12",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_12_2",
         "id_pregunta": "DISC_12",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_12_3",
         "id_pregunta": "DISC_12",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_12_4",
         "id_pregunta": "DISC_12",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_12_5",
+        "id_pregunta": "DISC_12",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -1978,30 +2314,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_13_1",
         "id_pregunta": "DISC_13",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_13_2",
         "id_pregunta": "DISC_13",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_13_3",
         "id_pregunta": "DISC_13",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_13_4",
         "id_pregunta": "DISC_13",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_13_5",
+        "id_pregunta": "DISC_13",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -2018,30 +2361,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_14_1",
         "id_pregunta": "DISC_14",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_14_2",
         "id_pregunta": "DISC_14",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_14_3",
         "id_pregunta": "DISC_14",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_14_4",
         "id_pregunta": "DISC_14",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_14_5",
+        "id_pregunta": "DISC_14",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -2058,30 +2408,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_15_1",
         "id_pregunta": "DISC_15",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_15_2",
         "id_pregunta": "DISC_15",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_15_3",
         "id_pregunta": "DISC_15",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_15_4",
         "id_pregunta": "DISC_15",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_15_5",
+        "id_pregunta": "DISC_15",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -2098,30 +2455,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_16_1",
         "id_pregunta": "DISC_16",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_16_2",
         "id_pregunta": "DISC_16",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_16_3",
         "id_pregunta": "DISC_16",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_16_4",
         "id_pregunta": "DISC_16",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_16_5",
+        "id_pregunta": "DISC_16",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -2138,30 +2502,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_17_1",
         "id_pregunta": "DISC_17",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_17_2",
         "id_pregunta": "DISC_17",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_17_3",
         "id_pregunta": "DISC_17",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_17_4",
         "id_pregunta": "DISC_17",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_17_5",
+        "id_pregunta": "DISC_17",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },
@@ -2178,30 +2549,37 @@ export const MOCK_PREGUNTAS: PreguntaEncuesta[] = [
       {
         "id_opcion": "DISC_18_1",
         "id_pregunta": "DISC_18",
-        "texto_opcion": "Nunca o casi nunca",
-        "peso": 0,
+        "texto_opcion": "Nunca",
+        "peso": 1,
         "orden_opcion": 1
       },
       {
         "id_opcion": "DISC_18_2",
         "id_pregunta": "DISC_18",
-        "texto_opcion": "A veces",
-        "peso": 1,
+        "texto_opcion": "Casi nunca",
+        "peso": 2,
         "orden_opcion": 2
       },
       {
         "id_opcion": "DISC_18_3",
         "id_pregunta": "DISC_18",
-        "texto_opcion": "Frecuentemente",
-        "peso": 2,
+        "texto_opcion": "A veces",
+        "peso": 3,
         "orden_opcion": 3
       },
       {
         "id_opcion": "DISC_18_4",
         "id_pregunta": "DISC_18",
-        "texto_opcion": "Casi siempre / Muy frecuente",
-        "peso": 3,
+        "texto_opcion": "Casi siempre",
+        "peso": 4,
         "orden_opcion": 4
+      },
+      {
+        "id_opcion": "DISC_18_5",
+        "id_pregunta": "DISC_18",
+        "texto_opcion": "Siempre",
+        "peso": 5,
+        "orden_opcion": 5
       }
     ]
   },

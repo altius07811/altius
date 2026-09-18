@@ -149,12 +149,15 @@ export const guardarRespuestasYCalcular = async (req: Request, res: Response): P
         nivel = reglaEncontrada.nivel_o_regla || nivel;
         textoResultado = reglaEncontrada.detalle || textoResultado;
       } else {
-        if (puntaje >= 28) {
+        if (puntaje >= 72) {
+          nivel = 'Señal Relevante';
+          textoResultado = 'Se observan indicadores persistentes que ameritan evaluación psicopedagógica formal.';
+        } else if (puntaje >= 54) {
           nivel = 'Señal Moderada';
-          textoResultado = 'Se observan algunos indicadores que ameritan acompañamiento pedagógico.';
-        } else if (puntaje >= 16) {
+          textoResultado = 'Se observan algunos indicadores que ameritan acompañamiento pedagógico y adaptaciones.';
+        } else if (puntaje >= 36) {
           nivel = 'Señal Leve';
-          textoResultado = 'Manifestaciones ocasionales observables.';
+          textoResultado = 'Manifestaciones ocasionales observables dentro del contexto de aula.';
         }
       }
 

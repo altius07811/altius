@@ -22,10 +22,11 @@ async function main() {
   console.log(`📄 Leyendo ${rawPreguntas.length} preguntas de Excel 1...`);
 
   const opcionesEscala = [
-    { texto_opcion: 'Nunca o casi nunca', peso: 0, orden_opcion: 1 },
-    { texto_opcion: 'A veces', peso: 1, orden_opcion: 2 },
-    { texto_opcion: 'Frecuentemente', peso: 2, orden_opcion: 3 },
-    { texto_opcion: 'Casi siempre / Muy frecuente', peso: 3, orden_opcion: 4 },
+    { texto_opcion: 'Nunca', peso: 1, orden_opcion: 1 },
+    { texto_opcion: 'Casi nunca', peso: 2, orden_opcion: 2 },
+    { texto_opcion: 'A veces', peso: 3, orden_opcion: 3 },
+    { texto_opcion: 'Casi siempre', peso: 4, orden_opcion: 4 },
+    { texto_opcion: 'Siempre', peso: 5, orden_opcion: 5 },
   ];
 
   for (const p of rawPreguntas) {
@@ -77,7 +78,7 @@ async function main() {
     });
   }
 
-  // 4. Reglas de Niveles
+  // 4. Reglas de Niveles (Escala 1 a 5, 18 preguntas -> Rango 18 a 90)
   await prisma.reglaNivel.createMany({
     data: [
       {
@@ -86,9 +87,9 @@ async function main() {
         tipo: 'puntaje',
         nivel_o_regla: 'Sin señales significativas',
         variable_evaluada: 'puntaje_tdah',
-        valor_min: 0,
-        valor_max: 15,
-        condicion_texto: 'Puntaje 0-15',
+        valor_min: 18,
+        valor_max: 35,
+        condicion_texto: 'Puntaje 18-35',
         rango_validado: 'Normal',
         detalle: 'Comportamiento atencional y motor dentro de los parámetros esperados para la etapa escolar.',
         fuente: 'Vizcarra & Terán (2018), Guía de Detección Temprana'
@@ -99,9 +100,9 @@ async function main() {
         tipo: 'puntaje',
         nivel_o_regla: 'Señal Leve',
         variable_evaluada: 'puntaje_tdah',
-        valor_min: 16,
-        valor_max: 27,
-        condicion_texto: 'Puntaje 16-27',
+        valor_min: 36,
+        valor_max: 53,
+        condicion_texto: 'Puntaje 36-53',
         rango_validado: 'Señal Leve',
         detalle: 'Manifestaciones ocasionales de dispersión o inquietud. Se recomiendan adaptaciones didácticas estándar.',
         fuente: 'Vizcarra & Terán (2018)'
@@ -112,9 +113,9 @@ async function main() {
         tipo: 'puntaje',
         nivel_o_regla: 'Señal Moderada',
         variable_evaluada: 'puntaje_tdah',
-        valor_min: 28,
-        valor_max: 42,
-        condicion_texto: 'Puntaje 28-42',
+        valor_min: 54,
+        valor_max: 71,
+        condicion_texto: 'Puntaje 54-71',
         rango_validado: 'Señal Moderada',
         detalle: 'Indicadores consistentes que impactan en el rendimiento escolar o convivencia. Se sugiere apoyo pedagógico focalizado.',
         fuente: 'Vizcarra & Terán (2018)'
@@ -125,9 +126,9 @@ async function main() {
         tipo: 'puntaje',
         nivel_o_regla: 'Señal Relevante',
         variable_evaluada: 'puntaje_tdah',
-        valor_min: 43,
-        valor_max: 60,
-        condicion_texto: 'Puntaje 43-60',
+        valor_min: 72,
+        valor_max: 90,
+        condicion_texto: 'Puntaje 72-90',
         rango_validado: 'Señal Relevante',
         detalle: 'Señales persistentes de inatención o impulsividad. Se aconseja orientar a evaluación psicopedagógica formal.',
         fuente: 'Vizcarra & Terán (2018)'
@@ -138,9 +139,9 @@ async function main() {
         tipo: 'puntaje',
         nivel_o_regla: 'Sin señales significativas',
         variable_evaluada: 'puntaje_dislexia',
-        valor_min: 0,
-        valor_max: 15,
-        condicion_texto: 'Puntaje 0-15',
+        valor_min: 18,
+        valor_max: 35,
+        condicion_texto: 'Puntaje 18-35',
         rango_validado: 'Normal',
         detalle: 'Adquisición y fluidez de la lectoescritura acorde al curso.',
         fuente: 'Defior & Serrano (2014)'
@@ -151,9 +152,9 @@ async function main() {
         tipo: 'puntaje',
         nivel_o_regla: 'Señal Leve',
         variable_evaluada: 'puntaje_dislexia',
-        valor_min: 16,
-        valor_max: 27,
-        condicion_texto: 'Puntaje 16-27',
+        valor_min: 36,
+        valor_max: 53,
+        condicion_texto: 'Puntaje 36-53',
         rango_validado: 'Señal Leve',
         detalle: 'Dificultades puntuales en velocidad o precisión lectora que responden bien a refuerzo didáctico.',
         fuente: 'Defior & Serrano (2014)'
@@ -164,9 +165,9 @@ async function main() {
         tipo: 'puntaje',
         nivel_o_regla: 'Señal Moderada',
         variable_evaluada: 'puntaje_dislexia',
-        valor_min: 28,
-        valor_max: 42,
-        condicion_texto: 'Puntaje 28-42',
+        valor_min: 54,
+        valor_max: 71,
+        condicion_texto: 'Puntaje 54-71',
         rango_validado: 'Señal Moderada',
         detalle: 'Errores frecuentes de decodificación y vacilación lectora que justifiquen adaptaciones curriculares.',
         fuente: 'Defior & Serrano (2014)'
@@ -177,9 +178,9 @@ async function main() {
         tipo: 'puntaje',
         nivel_o_regla: 'Señal Relevante',
         variable_evaluada: 'puntaje_dislexia',
-        valor_min: 43,
-        valor_max: 60,
-        condicion_texto: 'Puntaje 43-60',
+        valor_min: 72,
+        valor_max: 90,
+        condicion_texto: 'Puntaje 72-90',
         rango_validado: 'Señal Relevante',
         detalle: 'Dificultad marcada y persistente en conciencia fonológica y lectura. Sugerida evaluación especializada.',
         fuente: 'Defior & Serrano (2014)'
@@ -190,9 +191,9 @@ async function main() {
         tipo: 'puntaje',
         nivel_o_regla: 'Sin señales significativas',
         variable_evaluada: 'puntaje_discalculia',
-        valor_min: 0,
-        valor_max: 15,
-        condicion_texto: 'Puntaje 0-15',
+        valor_min: 18,
+        valor_max: 35,
+        condicion_texto: 'Puntaje 18-35',
         rango_validado: 'Normal',
         detalle: 'Sentido numérico y cálculo básico dentro de los parámetros esperados.',
         fuente: 'Butterworth (2019)'
@@ -203,9 +204,9 @@ async function main() {
         tipo: 'puntaje',
         nivel_o_regla: 'Señal Leve',
         variable_evaluada: 'puntaje_discalculia',
-        valor_min: 16,
-        valor_max: 27,
-        condicion_texto: 'Puntaje 16-27',
+        valor_min: 36,
+        valor_max: 53,
+        condicion_texto: 'Puntaje 36-53',
         rango_validado: 'Señal Leve',
         detalle: 'Dificultad leve en operaciones nuevas o cálculo mental abstracto.',
         fuente: 'Butterworth (2019)'
@@ -216,9 +217,9 @@ async function main() {
         tipo: 'puntaje',
         nivel_o_regla: 'Señal Moderada',
         variable_evaluada: 'puntaje_discalculia',
-        valor_min: 28,
-        valor_max: 42,
-        condicion_texto: 'Puntaje 28-42',
+        valor_min: 54,
+        valor_max: 71,
+        condicion_texto: 'Puntaje 54-71',
         rango_validado: 'Señal Moderada',
         detalle: 'Dificultades consistentes en estimación de magnitudes y resolución de problemas.',
         fuente: 'Butterworth (2019)'
@@ -229,9 +230,9 @@ async function main() {
         tipo: 'puntaje',
         nivel_o_regla: 'Señal Relevante',
         variable_evaluada: 'puntaje_discalculia',
-        valor_min: 43,
-        valor_max: 60,
-        condicion_texto: 'Puntaje 43-60',
+        valor_min: 72,
+        valor_max: 90,
+        condicion_texto: 'Puntaje 72-90',
         rango_validado: 'Señal Relevante',
         detalle: 'Obstáculos significativos en la comprensión de cantidades y procedimientos matemáticos.',
         fuente: 'Butterworth (2019)'

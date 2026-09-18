@@ -9,10 +9,11 @@ const wb3 = XLSX.readFile(path.resolve(__dirname, '../Excel_3_Tests_Profesionale
 const rawTests = XLSX.utils.sheet_to_json(wb3.Sheets['Tests_Profesionales']);
 
 const opcionesEscala = [
-  { texto_opcion: 'Nunca o casi nunca', peso: 0, orden_opcion: 1 },
-  { texto_opcion: 'A veces', peso: 1, orden_opcion: 2 },
-  { texto_opcion: 'Frecuentemente', peso: 2, orden_opcion: 3 },
-  { texto_opcion: 'Casi siempre / Muy frecuente', peso: 3, orden_opcion: 4 },
+  { texto_opcion: 'Nunca', peso: 1, orden_opcion: 1 },
+  { texto_opcion: 'Casi nunca', peso: 2, orden_opcion: 2 },
+  { texto_opcion: 'A veces', peso: 3, orden_opcion: 3 },
+  { texto_opcion: 'Casi siempre', peso: 4, orden_opcion: 4 },
+  { texto_opcion: 'Siempre', peso: 5, orden_opcion: 5 },
 ];
 
 const mockPreguntas = rawPreguntas.map((p) => {

@@ -108,21 +108,27 @@ export const enviarRespuestas = async (
   });
 
   const getDetalle = (cat: string, p: number) => {
-    if (p >= 28) {
+    if (p >= 72) {
       return {
-        nivel: 'Señal Moderada',
-        texto_resultado: `Se observan indicadores en ${cat} que justifican estrategias pedagógicas de apoyo y seguimiento.`
+        nivel: 'Señal Relevante',
+        texto_resultado: `Se observan indicadores marcados en ${cat} que ameritan evaluación psicopedagógica integral.`
       };
     }
-    if (p >= 16) {
+    if (p >= 54) {
+      return {
+        nivel: 'Señal Moderada',
+        texto_resultado: `Se observan indicadores consistentes en ${cat} que justifican estrategias pedagógicas de apoyo y seguimiento.`
+      };
+    }
+    if (p >= 36) {
       return {
         nivel: 'Señal Leve',
-        texto_resultado: `Presencia de señales iniciales o situacionales en ${cat}.`
+        texto_resultado: `Presencia de señales iniciales u ocasionales en ${cat}.`
       };
     }
     return {
       nivel: 'Sin señales significativas',
-      texto_resultado: `Desempeño acorde a lo esperado para el nivel escolar en ${cat}.`
+      texto_resultado: `Desempeño dentro del rango típico esperado para la etapa escolar en ${cat}.`
     };
   };
 
