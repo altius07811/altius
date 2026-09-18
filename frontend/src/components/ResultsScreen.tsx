@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   AlertTriangle, 
   BookOpenCheck, 
@@ -13,7 +13,8 @@ import {
   Bot,
   Send,
   Loader2,
-  Lightbulb
+  Lightbulb,
+  MessageSquare
 } from 'lucide-react';
 import { ResultadoCategoria, SugerenciaItem, AnalisisPedagogicoIA } from '../types';
 import { consultarAsistenteIA } from '../services/api';
@@ -29,6 +30,38 @@ interface ResultsScreenProps {
   onRestart: () => void;
 }
 
+// Componente para efecto de máquina de escribir fluido (typewriter)
+const TypewriterText: React.FC<{ text: string; speed?: number }> = ({ text, speed = 12 }) => {
+  const [displayedText, setDisplayedText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    setDisplayedText('');
+    setCurrentIndex(0);
+  }, [text]);
+
+  useEffect(() => {
+    if (currentIndex < text.length) {
+      const timeout = setTimeout(() => {
+        // Avance de 1 o 2 caracteres para fluidez natural
+        const step = Math.min(2, text.length - currentIndex);
+        setDisplayedText((prev) => prev + text.slice(currentIndex, currentIndex + step));
+        setCurrentIndex((prev) => prev + step);
+      }, speed);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, text, speed]);
+
+  return (
+    <span>
+      {displayedText}
+      {currentIndex < text.length && (
+        <span className="inline-block w-1.5 h-3.5 bg-[#3E83A8] ml-0.5 align-middle animate-pulse rounded-full" />
+      )}
+    </span>
+  );
+};
+
 export const ResultsScreen: React.FC<ResultsScreenProps> = ({
   studentCode,
   resultados,
@@ -42,13 +75,14 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
   // Asistente interactivo de IA
   const [preguntaIA, setPreguntaIA] = useState('');
   const [cargandoIA, setCargandoIA] = useState(false);
-  const [historialChat, setHistorialChat] = useState<Array<{ remitente: 'usuario' | 'ia'; texto: string }>>([]);
+  const [historialChat, setHistorialChat] = useState<Array<{ id: number; remitente: 'usuario' | 'ia'; texto: string; isNew?: boolean }>>([]);
 
   const handleEnviarConsultaIA = async (preguntaTexto?: string) => {
     const textoAEnviar = (preguntaTexto || preguntaIA).trim();
     if (!textoAEnviar || cargandoIA) return;
 
-    setHistorialChat((prev) => [...prev, { remitente: 'usuario', texto: textoAEnviar }]);
+    const userMsgId = Date.now();
+    setHistorialChat((prev) => [...prev, { id: userMsgId, remitente: 'usuario', texto: textoAEnviar }]);
     setPreguntaIA('');
     setCargandoIA(true);
 
@@ -58,11 +92,12 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
         resultados: resultados.map((r) => ({ categoria: r.categoria, nivel: r.nivel })),
         observaciones
       });
-      setHistorialChat((prev) => [...prev, { remitente: 'ia', texto: resp.respuesta }]);
+      const aiMsgId = Date.now() + 1;
+      setHistorialChat((prev) => [...prev, { id: aiMsgId, remitente: 'ia', texto: resp.respuesta, isNew: true }]);
     } catch {
       setHistorialChat((prev) => [
         ...prev,
-        { remitente: 'ia', texto: 'No se pudo completar la consulta en este momento. Intenta de nuevo.' }
+        { id: Date.now() + 2, remitente: 'ia', texto: 'No se pudo completar la consulta en este momento. Intenta de nuevo.', isNew: true }
       ]);
     } finally {
       setCargandoIA(false);
@@ -112,8 +147,9 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 fade-in space-y-6 sm:space-y-8">
-      {/* Top Header Summary */}
-      <div className="bg-[#FFFDF9] rounded-3xl border border-[#D4DFEB] shadow-soft-md p-6 sm:p-10 space-y-6">
+      
+      {/* SECCIÓN 1: Cabecera y Reporte General (Borde Azul Cielo Suave #6BA7C9) */}
+      <div className="bg-[#FFFDF9] rounded-3xl border-2 border-[#6BA7C9] shadow-soft-md p-6 sm:p-10 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#D4DFEB]">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#BCEBD1] text-[#0D4233] text-xs sm:text-sm font-bold mb-2">
@@ -153,8 +189,8 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
         </div>
       </div>
 
-      {/* Resultados por Categoría (TDAH, Dislexia, Discalculia) */}
-      <div className="bg-[#FFFDF9] rounded-3xl border border-[#D4DFEB] shadow-soft-md p-6 sm:p-10 space-y-6">
+      {/* SECCIÓN 2: Niveles de Señal Detectados por Área (Borde Azul Primario #3E83A8) */}
+      <div className="bg-[#FFFDF9] rounded-3xl border-2 border-[#3E83A8] shadow-soft-md p-6 sm:p-10 space-y-6">
         <h3 className="font-display text-xl sm:text-2xl font-bold text-[#253444] flex items-center gap-2.5">
           <BarChart3 className="w-6 h-6 text-[#3E83A8]" />
           Niveles de Señal Detectados por Área
@@ -176,7 +212,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
                     </span>
                   </div>
 
-                  {/* Visual Intensity Bar (Soft & Gradual) */}
+                  {/* Visual Intensity Bar */}
                   <div className="mb-4">
                     <div className="flex justify-between text-xs text-[#576574] mb-1.5 font-bold">
                       <span>Intensidad estimada:</span>
@@ -208,35 +244,34 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
         </div>
       </div>
 
-      {/* SECCIÓN ESPECIAL: Síntesis Pedagógica Personalizada con IA (Groq) */}
+      {/* SECCIÓN 3: Síntesis Pedagógica Personalizada con IA (Borde Lavanda #9e6eff) */}
       {analisisIA && (
-        <div className="bg-[#FFFDF9] rounded-3xl border-2 border-[#6BA7C9] shadow-soft-md p-6 sm:p-10 space-y-6">
+        <div className="bg-[#FFFDF9] rounded-3xl border-2 border-[#9e6eff] shadow-soft-md p-6 sm:p-10 space-y-6">
           <div className="flex items-center justify-between gap-3 pb-4 border-b border-[#D4DFEB]">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-2xl bg-[#C2E4F8] text-[#12415E] flex items-center justify-center shadow-soft-sm">
-                <Bot className="w-6 h-6 text-[#12415E]" />
+              <div className="w-11 h-11 rounded-2xl bg-[#DFD5F5] text-[#483962] flex items-center justify-center shadow-soft-sm">
+                <Bot className="w-6 h-6 text-[#483962]" />
               </div>
               <div>
                 <h3 className="font-display text-xl sm:text-2xl font-bold text-[#253444]">
                   Síntesis y Adaptaciones con IA
                 </h3>
                 <p className="text-xs text-[#576574] font-semibold">
-                  Análisis cualitativo generado con Groq AI en base a las respuestas y observaciones ingresadas
+                  Análisis cualitativo generado en base a las respuestas y observaciones ingresadas
                 </p>
               </div>
             </div>
-            <span className="hidden sm:inline-block text-[11px] font-bold bg-[#CAEFDD] text-[#1C463C] px-3 py-1 rounded-full">
-              Groq Powered
-            </span>
           </div>
 
-          {/* Resumen Cualitativo */}
+          {/* Resumen Cualitativo con efecto de escritura */}
           <div className="p-5 rounded-2xl bg-[#E4EEF6]/80 border border-[#D4DFEB] text-xs sm:text-sm text-[#253444] leading-relaxed">
-            <p className="font-bold text-sm mb-1 text-[#12415E] flex items-center gap-1.5">
+            <p className="font-bold text-sm mb-1.5 text-[#12415E] flex items-center gap-1.5">
               <Lightbulb className="w-4 h-4 text-[#3E83A8]" />
               Perfil Cualitativo Observado:
             </p>
-            <p>{analisisIA.resumen_cualitativo}</p>
+            <div className="font-medium text-[#253444]">
+              <TypewriterText text={analisisIA.resumen_cualitativo} speed={10} />
+            </div>
           </div>
 
           {/* Estrategias de IA para Aula y Casa */}
@@ -249,7 +284,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
                   Adaptaciones de Aula Recomendadas:
                 </h4>
                 {analisisIA.estrategias_aula.map((est, idx) => (
-                  <div key={idx} className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#D4DFEB] text-xs space-y-1">
+                  <div key={idx} className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#D4DFEB] text-xs space-y-1 shadow-soft-sm">
                     <p className="font-bold text-[#253444]">{est.titulo}</p>
                     <p className="text-[#576574] leading-relaxed">{est.descripcion}</p>
                   </div>
@@ -265,7 +300,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
                   Pautas Familiares Recomendadas:
                 </h4>
                 {analisisIA.estrategias_casa.map((est, idx) => (
-                  <div key={idx} className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#D4DFEB] text-xs space-y-1">
+                  <div key={idx} className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#D4DFEB] text-xs space-y-1 shadow-soft-sm">
                     <p className="font-bold text-[#253444]">{est.titulo}</p>
                     <p className="text-[#576574] leading-relaxed">{est.descripcion}</p>
                   </div>
@@ -276,8 +311,8 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
         </div>
       )}
 
-      {/* Sección Próximos Pasos (Predeterminados) */}
-      <div className="bg-[#FFFDF9] rounded-3xl border border-[#D4DFEB] shadow-soft-md p-6 sm:p-10 space-y-6">
+      {/* SECCIÓN 4: Próximos Pasos (Borde Verde Menta #52b380) */}
+      <div className="bg-[#FFFDF9] rounded-3xl border-2 border-[#52b380] shadow-soft-md p-6 sm:p-10 space-y-6">
         <div>
           <h3 className="font-display text-xl sm:text-2xl font-bold text-[#253444] flex items-center gap-2.5">
             <CheckCircle2 className="w-6 h-6 text-[#1C463C]" />
@@ -301,7 +336,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
             <div className="space-y-3.5">
               {sugerenciasAula.length > 0 ? (
                 sugerenciasAula.map((sug) => (
-                  <div key={sug.id_sugerencia} className="p-4 rounded-2xl bg-[#E4EEF6]/60 border border-[#D4DFEB] text-xs sm:text-sm space-y-1.5">
+                  <div key={sug.id_sugerencia} className="p-4 rounded-2xl bg-[#E4EEF6]/60 border border-[#D4DFEB] text-xs sm:text-sm space-y-1.5 shadow-soft-sm">
                     <p className="font-bold text-[#253444]">{sug.sugerencia}</p>
                     <p className="text-[#576574] leading-relaxed">{sug.detalle}</p>
                     {sug.fuente && (
@@ -330,7 +365,7 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
             <div className="space-y-3.5">
               {sugerenciasCasa.length > 0 ? (
                 sugerenciasCasa.map((sug) => (
-                  <div key={sug.id_sugerencia} className="p-4 rounded-2xl bg-[#E4EEF6]/60 border border-[#D4DFEB] text-xs sm:text-sm space-y-1.5">
+                  <div key={sug.id_sugerencia} className="p-4 rounded-2xl bg-[#E4EEF6]/60 border border-[#D4DFEB] text-xs sm:text-sm space-y-1.5 shadow-soft-sm">
                     <p className="font-bold text-[#253444]">{sug.sugerencia}</p>
                     <p className="text-[#576574] leading-relaxed">{sug.detalle}</p>
                     {sug.fuente && (
@@ -349,18 +384,18 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
         </div>
       </div>
 
-      {/* WIDGET INTERACTIVO: Asistente Pedagógico IA (Groq) */}
-      <div className="bg-[#FFFDF9] rounded-3xl border border-[#D4DFEB] shadow-soft-md p-6 sm:p-10 space-y-5">
+      {/* SECCIÓN 5: Asistente Pedagógico con IA (Borde Ámbar #d97706) */}
+      <div className="bg-[#FFFDF9] rounded-3xl border-2 border-[#d97706] shadow-soft-md p-6 sm:p-10 space-y-5">
         <div className="flex items-center gap-3 pb-3 border-b border-[#D4DFEB]">
-          <div className="w-10 h-10 rounded-2xl bg-[#CAEFDD] text-[#1C463C] flex items-center justify-center shadow-soft-sm">
-            <Bot className="w-5 h-5 text-[#0D4233]" />
+          <div className="w-10 h-10 rounded-2xl bg-[#F6E6CB] text-[#65452A] flex items-center justify-center shadow-soft-sm">
+            <MessageSquare className="w-5 h-5 text-[#65452A]" />
           </div>
           <div>
             <h3 className="font-display text-lg sm:text-xl font-bold text-[#253444]">
               ¿Tienes dudas sobre cómo apoyar a este estudiante?
             </h3>
             <p className="text-xs text-[#576574] font-semibold">
-              Consulta en tiempo real al Asistente Psicopedagógico con IA (Groq)
+              Consulta en tiempo real al Asistente Psicopedagógico con IA
             </p>
           </div>
         </div>
@@ -376,29 +411,35 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
               key={i}
               type="button"
               onClick={() => handleEnviarConsultaIA(sug)}
-              className="text-[11px] font-bold bg-[#E4EEF6] hover:bg-[#C2E4F8] text-[#12415E] px-3 py-1.5 rounded-full border border-[#D4DFEB] transition-colors cursor-pointer"
+              className="text-[11px] font-bold bg-[#E4EEF6] hover:bg-[#C2E4F8] text-[#12415E] px-3.5 py-1.5 rounded-full border border-[#D4DFEB] transition-colors cursor-pointer shadow-soft-sm"
             >
               {sug}
             </button>
           ))}
         </div>
 
-        {/* Historial de conversación */}
+        {/* Historial de conversación con efecto de escritura progresivo */}
         {historialChat.length > 0 && (
-          <div className="space-y-3 pt-2 max-h-72 overflow-y-auto pr-1">
-            {historialChat.map((msg, idx) => (
+          <div className="space-y-3 pt-2 max-h-80 overflow-y-auto pr-1">
+            {historialChat.map((msg) => (
               <div
-                key={idx}
-                className={`p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
+                key={msg.id}
+                className={`p-4 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-soft-sm ${
                   msg.remitente === 'usuario'
                     ? 'bg-[#C2E4F8] text-[#12415E] ml-6 border border-[#a6d8f6]'
-                    : 'bg-[#CAEFDD]/60 text-[#1C463C] mr-6 border border-[#BCEBD1]'
+                    : 'bg-[#CAEFDD]/70 text-[#1C463C] mr-6 border border-[#BCEBD1]'
                 }`}
               >
                 <span className="font-bold block mb-1">
                   {msg.remitente === 'usuario' ? 'Tu consulta:' : 'Orientación Psicopedagógica IA:'}
                 </span>
-                <p>{msg.texto}</p>
+                <div>
+                  {msg.remitente === 'ia' ? (
+                    <TypewriterText text={msg.texto} speed={10} />
+                  ) : (
+                    <p>{msg.texto}</p>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -433,8 +474,8 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
         </div>
       </div>
 
-      {/* Tarjeta de Derivación Destacada */}
-      <div className="bg-[#253444] rounded-3xl p-7 sm:p-9 text-[#F5FBFF] shadow-soft-lg flex flex-col sm:flex-row items-center justify-between gap-6">
+      {/* SECCIÓN 6: Tarjeta de Derivación Destacada (Borde Menta Suave #CAEFDD) */}
+      <div className="bg-[#253444] rounded-3xl border-2 border-[#CAEFDD] p-7 sm:p-9 text-[#F5FBFF] shadow-soft-lg flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="space-y-2 text-center sm:text-left">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#3E83A8] text-[#F5FBFF] text-xs font-bold">
             <HeartHandshake className="w-4 h-4" />
