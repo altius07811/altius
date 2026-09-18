@@ -3,9 +3,22 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    font-size: 16px;
+  }
   body {
-    @apply bg-slate-50 text-slate-800 antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-color: #F9F7EE;
+    color: #253444;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Fraunces', serif;
+    letter-spacing: -0.015em;
   }
 }
 
@@ -17,7 +30,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;

@@ -1,30 +1,31 @@
 import React from 'react';
-import { AlertTriangle, BookOpen, HeartHandshake } from 'lucide-react';
+import { AlertTriangle, BookOpenCheck, HeartHandshake } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-white border-t border-slate-200 mt-auto py-8">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-4 mb-6 flex items-start gap-3.5 text-xs text-slate-600 leading-relaxed">
-          <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+    <footer className="bg-[#FFFDF9] border-t border-[#D4DFEB] mt-auto py-8">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+        {/* Aviso Ético */}
+        <div className="bg-[#F6E6CB] border border-[#e8d2ac] rounded-2xl p-4 sm:p-5 mb-6 flex items-start gap-3.5 text-xs sm:text-sm text-[#65452A] leading-relaxed shadow-soft-sm">
+          <AlertTriangle className="w-5 h-5 text-[#65452A] shrink-0 mt-0.5" />
           <div>
-            <span className="font-semibold text-slate-800">Aviso ético y delimitación de alcance:</span> ALTIUS es una herramienta pedagógica de cribado y apoyo formativo inicial diseñada para el contexto escolar en Bolivia. No sustituye la evaluación clínica, neuropsicológica ni médica formal realizada por un profesional matriculado.
+            <span className="font-bold text-[#4e341e]">Aviso ético y delimitación de alcance:</span> ALTIUS es una herramienta pedagógica de cribado y apoyo formativo inicial diseñada para el contexto escolar en Bolivia. No sustituye la evaluación clínica, neuropsicológica ni médica formal realizada por un profesional matriculado.
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1">
-              <BookOpen className="w-3.5 h-3.5 text-altius-600" />
-              Basado en literatura científica curada
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-[#576574]">
+          <div className="flex flex-wrap items-center gap-4">
+            <span className="flex items-center gap-1.5 font-semibold text-[#253444]">
+              <BookOpenCheck className="w-4 h-4 text-[#3E83A8]" />
+              Literatura científica curada
             </span>
-            <span className="flex items-center gap-1">
-              <HeartHandshake className="w-3.5 h-3.5 text-teal-600" />
-              Inclusión y equidad educativa
+            <span className="flex items-center gap-1.5 font-semibold text-[#1C463C]">
+              <HeartHandshake className="w-4 h-4 text-[#1C463C]" />
+              Inclusión escolar Bolivia
             </span>
           </div>
-          <div>
-            &copy; {new Date().getFullYear()} ALTIUS Bolivia. Todos los derechos reservados.
+          <div className="font-medium">
+            &copy; {new Date().getFullYear()} ALTIUS Bolivia.
           </div>
         </div>
       </div>

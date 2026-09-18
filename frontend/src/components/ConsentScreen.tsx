@@ -14,74 +14,81 @@ export const ConsentScreen: React.FC<ConsentScreenProps> = ({ onAccept, onBack }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (accepted) {
-      onAccept(rol, studentCode);
+    if (accepted && studentCode.trim()) {
+      onAccept(rol, studentCode.trim());
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12 fade-in">
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
-        {/* Header Icon */}
-        <div className="flex items-center gap-3 mb-6 pb-5 border-b border-slate-100">
-          <div className="w-12 h-12 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
-            <ShieldCheck className="w-6 h-6" />
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 fade-in">
+      <div className="bg-[#FFFDF9] rounded-3xl border border-[#D4DFEB] shadow-soft-md p-6 sm:p-10 space-y-6 sm:space-y-8">
+        {/* Header Icon & Title */}
+        <div className="flex items-center gap-4 pb-6 border-b border-[#D4DFEB]">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#CAEFDD] text-[#1C463C] flex items-center justify-center shrink-0 shadow-soft-sm">
+            <ShieldCheck className="w-7 h-7 text-[#0D4233]" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-slate-900">Consentimiento y Uso Responsable</h2>
-            <p className="text-xs text-slate-500">Transparencia y protección de datos educativos</p>
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#253444]">
+              Consentimiento y Uso Responsable
+            </h2>
+            <p className="text-xs sm:text-sm text-[#576574] font-semibold mt-0.5">
+              Transparencia y protección de datos en la observación escolar
+            </p>
           </div>
         </div>
 
         {/* Content Box */}
-        <div className="space-y-4 text-sm text-slate-600 mb-6 leading-relaxed">
-          <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/70 space-y-2.5">
-            <div className="flex items-start gap-2.5">
-              <Lock className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
-              <p className="text-xs text-slate-700">
-                <span className="font-semibold text-slate-800">Privacidad y anonimización:</span> No recopilamos nombres completos ni documentos de identidad oficial. Las respuestas se asocian a un código de referencia temporal únicamente con fines de análisis pedagógico.
+        <div className="space-y-4">
+          <div className="p-5 bg-[#E4EEF6] rounded-2xl border border-[#D4DFEB] space-y-3 text-xs sm:text-sm text-[#253444] leading-relaxed">
+            <div className="flex items-start gap-3">
+              <Lock className="w-4 h-4 text-[#3E83A8] shrink-0 mt-1" />
+              <p>
+                <strong className="font-bold text-[#253444]">Privacidad y anonimización:</strong> No recopilamos nombres completos ni documentos de identidad oficial. Las respuestas se asocian a un código de referencia temporal únicamente con fines de análisis pedagógico.
               </p>
             </div>
-            <div className="flex items-start gap-2.5">
-              <FileText className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
-              <p className="text-xs text-slate-700">
-                <span className="font-semibold text-slate-800">Finalidad pedagógica:</span> La información ingresada se procesa exclusivamente para generar sugerencias adaptativas de aula y orientar a la familia en caso de requerirse una derivación especializada.
+            <div className="flex items-start gap-3">
+              <FileText className="w-4 h-4 text-[#3E83A8] shrink-0 mt-1" />
+              <p>
+                <strong className="font-bold text-[#253444]">Finalidad pedagógica:</strong> La información ingresada se procesa exclusivamente para generar sugerencias adaptativas de aula y orientar a la familia en caso de requerirse una derivación especializada.
               </p>
             </div>
           </div>
 
           {/* Form Controls */}
-          <form onSubmit={handleSubmit} className="space-y-5 pt-2">
+          <form onSubmit={handleSubmit} className="space-y-6 pt-2">
             {/* Rol selector */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-bold text-[#253444] uppercase tracking-wider mb-2.5">
                 ¿Quién completa esta observación?
               </label>
-              <div className="grid grid-cols-3 gap-2 sm:gap-3">
+              <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
                 {[
                   { id: 'docente', label: 'Docente de Aula' },
                   { id: 'padre/madre', label: 'Padre / Madre' },
                   { id: 'profesional', label: 'Psicopedagogo' }
-                ].map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setRol(item.id as RolEncuestado)}
-                    className={`px-3 py-2.5 rounded-xl text-xs font-medium border text-center transition-all cursor-pointer ${
-                      rol === item.id
-                        ? 'bg-altius-50 border-altius-500 text-altius-900 ring-2 ring-altius-500/20 font-semibold'
-                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
+                ].map((item) => {
+                  const isSelected = rol === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setRol(item.id as RolEncuestado)}
+                      className={`px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold border-2 text-center transition-all cursor-pointer ${
+                        isSelected
+                          ? 'bg-[#C2E4F8] border-[#3E83A8] text-[#12415E] shadow-soft-sm'
+                          : 'bg-[#FFFDF9] border-[#D4DFEB] text-[#576574] hover:bg-[#E4EEF6]/60 hover:border-[#6BA7C9]'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             {/* Student Code */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-[#253444] uppercase tracking-wider mb-1.5">
                 Identificador o Código del Estudiante
               </label>
               <input
@@ -89,35 +96,35 @@ export const ConsentScreen: React.FC<ConsentScreenProps> = ({ onAccept, onBack }
                 value={studentCode}
                 onChange={(e) => setStudentCode(e.target.value)}
                 placeholder="Ej. EST-104 o Iniciales"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-altius-500/30 focus:border-altius-500 transition-colors"
+                className="w-full px-4 py-3 rounded-2xl border-2 border-[#D4DFEB] bg-[#FFFDF9] text-sm font-semibold text-[#253444] focus:outline-none focus:ring-2 focus:ring-[#6BA7C9] focus:border-[#3E83A8] transition-all"
                 required
               />
-              <p className="text-[11px] text-slate-400 mt-1">
+              <p className="text-xs text-[#576574] mt-1.5 font-medium">
                 Puedes usar un código anónimo o las iniciales del estudiante.
               </p>
             </div>
 
             {/* Checkbox */}
-            <div className="pt-2">
-              <label className="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-slate-50 transition-colors cursor-pointer select-none">
+            <div className="pt-1">
+              <label className="flex items-start gap-3.5 p-4 rounded-2xl border-2 border-[#D4DFEB] bg-[#E4EEF6]/40 hover:bg-[#E4EEF6]/70 transition-colors cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={accepted}
                   onChange={(e) => setAccepted(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 rounded border-slate-300 text-altius-600 focus:ring-altius-500 cursor-pointer"
+                  className="mt-1 h-4 w-4 rounded border-[#D4DFEB] text-[#3E83A8] focus:ring-[#6BA7C9] cursor-pointer"
                 />
-                <span className="text-xs text-slate-700 leading-snug">
-                  <span className="font-semibold text-slate-900">Entiendo y acepto:</span> He leído que los resultados de ALTIUS son de carácter pedagógico y orientativo, y autorizo el uso de estas observaciones para generar el reporte de aula.
+                <span className="text-xs sm:text-sm text-[#253444] leading-relaxed">
+                  <strong className="font-bold text-[#253444]">Entiendo y acepto:</strong> He leído que los resultados de ALTIUS son de carácter pedagógico y orientativo, y autorizo el uso de estas observaciones para generar el reporte de aula.
                 </span>
               </label>
             </div>
 
             {/* Actions */}
-            <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+            <div className="flex items-center justify-between pt-4 border-t border-[#D4DFEB]">
               <button
                 type="button"
                 onClick={onBack}
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold text-[#576574] hover:text-[#253444] hover:bg-[#E4EEF6] transition-colors cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Volver</span>
@@ -126,10 +133,10 @@ export const ConsentScreen: React.FC<ConsentScreenProps> = ({ onAccept, onBack }
               <button
                 type="submit"
                 disabled={!accepted || !studentCode.trim()}
-                className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm ${
+                className={`inline-flex items-center gap-2 px-7 py-3 rounded-2xl text-sm font-bold transition-all shadow-soft-sm ${
                   accepted && studentCode.trim()
-                    ? 'bg-altius-700 hover:bg-altius-800 text-white shadow-altius-700/20 cursor-pointer hover:-translate-y-0.5'
-                    : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                    ? 'bg-[#3E83A8] hover:bg-[#326E8F] text-[#F5FBFF] cursor-pointer hover:-translate-y-0.5 hover:shadow-soft-md active:translate-y-0'
+                    : 'bg-[#D4DFEB] text-[#576574]/60 cursor-not-allowed'
                 }`}
               >
                 <span>Continuar a la Encuesta</span>

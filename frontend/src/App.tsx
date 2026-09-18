@@ -61,10 +61,10 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 selection:bg-altius-200 selection:text-altius-900">
+    <div className="min-h-screen flex flex-col bg-[#F9F7EE] text-[#253444] font-sans selection:bg-[#C2E4F8] selection:text-[#12415E]">
       <Header currentScreen={currentScreen} onNavigate={setCurrentScreen} />
 
-      <main className="flex-1">
+      <main className="flex-1 pb-10">
         {currentScreen === 'welcome' && (
           <WelcomeScreen onStart={handleStart} />
         )}
