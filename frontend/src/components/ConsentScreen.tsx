@@ -61,7 +61,7 @@ export const ConsentScreen: React.FC<ConsentScreenProps> = ({ onAccept, onBack }
                 {[
                   { id: 'docente', label: 'Docente de Aula' },
                   { id: 'padre/madre', label: 'Padre / Madre' },
-                  { id: 'profesional', label: 'Psicopedagogo / Tutor' }
+                  { id: 'profesional', label: 'Psicopedagogo' }
                 ].map((item) => (
                   <button
                     key={item.id}

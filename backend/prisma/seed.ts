@@ -94,7 +94,7 @@ async function main() {
       tipo_pregunta: 'abierta',
       texto_pregunta: 'Describe brevemente qué situaciones o dinámicas dentro del aula parecen desencadenar o aliviar estas dificultades:',
       orden: 5,
-      limite_caracteres: 400,
+      limite_caracteres: 500,
       opciones: []
     }
   ];

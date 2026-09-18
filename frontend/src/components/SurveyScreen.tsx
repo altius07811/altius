@@ -209,7 +209,7 @@ export const SurveyScreen: React.FC<SurveyScreenProps> = ({
           <div className="space-y-2 mb-6">
             <textarea
               rows={4}
-              maxLength={currentPregunta.limite_caracteres || 400}
+              maxLength={currentPregunta.limite_caracteres || 500}
               value={currentAnswer?.texto || ''}
               onChange={(e) => handleTextChange(e.target.value)}
               placeholder="Escribe tus observaciones aquí (ej. responde favorablemente al apoyo visual, se fatiga en periodos largos, etc.)..."
@@ -218,7 +218,7 @@ export const SurveyScreen: React.FC<SurveyScreenProps> = ({
             <div className="flex justify-between items-center text-[11px] text-slate-400 px-1">
               <span>Campo opcional para detalles pedagógicos adicionales</span>
               <span>
-                {(currentAnswer?.texto || '').length} / {currentPregunta.limite_caracteres || 400}
+                {(currentAnswer?.texto || '').length} / {currentPregunta.limite_caracteres || 500}
               </span>
             </div>
           </div>
