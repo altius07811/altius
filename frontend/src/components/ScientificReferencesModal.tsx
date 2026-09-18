@@ -46,22 +46,22 @@ export const ScientificReferencesModal: React.FC<ScientificReferencesModalProps>
   });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/50 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/60 backdrop-blur-sm animate-fade-in">
       <div 
-        className="bg-[#FFFDF9] rounded-3xl border-2 border-[#3E83A8] shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden"
+        className="bg-[#FFFDF9] rounded-3xl border-2 border-[#3E83A8] shadow-2xl w-full max-w-4xl h-[88vh] max-h-[850px] flex flex-col overflow-hidden animate-scale-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Modal */}
-        <div className="p-5 sm:p-6 bg-[#E4EEF6] border-b border-[#D4DFEB] flex items-center justify-between">
+        <div className="p-4 sm:p-5 bg-[#E4EEF6] border-b border-[#D4DFEB] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#3E83A8] text-[#F5FBFF] flex items-center justify-center shadow-soft-sm">
+            <div className="w-10 h-10 rounded-2xl bg-[#3E83A8] text-[#F5FBFF] flex items-center justify-center shadow-soft-sm shrink-0">
               <BookOpen className="w-5 h-5 text-[#F5FBFF]" />
             </div>
             <div>
-              <h2 className="font-display text-lg sm:text-xl font-bold text-[#253444]">
+              <h2 className="font-display text-lg sm:text-xl font-bold text-[#253444] leading-tight">
                 Marco Científico y Fuentes Bibliográficas
               </h2>
-              <p className="text-xs text-[#576574] font-semibold">
+              <p className="text-xs text-[#576574] font-semibold mt-0.5">
                 Respaldo académico, metodológico y psicométrico de ALTIUS
               </p>
             </div>
@@ -69,57 +69,69 @@ export const ScientificReferencesModal: React.FC<ScientificReferencesModalProps>
           <button
             type="button"
             onClick={onClose}
-            className="w-9 h-9 rounded-xl bg-white hover:bg-[#F9F7EE] text-[#576574] hover:text-[#253444] border border-[#D4DFEB] flex items-center justify-center transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-xl bg-white hover:bg-[#F9F7EE] text-[#576574] hover:text-[#253444] border border-[#D4DFEB] flex items-center justify-center transition-colors cursor-pointer shrink-0 ml-2"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Navigation */}
-        <div className="px-5 sm:px-6 pt-4 border-b border-[#D4DFEB] flex gap-2 overflow-x-auto bg-[#F9F7EE]">
+        <div className="px-4 sm:px-6 py-3 border-b border-[#D4DFEB] bg-[#F9F7EE] flex flex-wrap gap-2 shrink-0">
           <button
             type="button"
             onClick={() => setTabActiva('referencias')}
-            className={`px-4 py-2.5 rounded-t-2xl font-bold text-xs sm:text-sm transition-colors cursor-pointer border-t-2 border-x-2 ${
+            className={`px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer ${
               tabActiva === 'referencias'
-                ? 'bg-[#FFFDF9] border-[#3E83A8] text-[#3E83A8]'
-                : 'border-transparent text-[#576574] hover:text-[#253444]'
+                ? 'bg-[#3E83A8] text-[#F5FBFF] shadow-soft-xs'
+                : 'bg-white border border-[#D4DFEB] text-[#576574] hover:bg-[#E4EEF6] hover:text-[#253444]'
             }`}
           >
-            📚 Biblioteca de Referencias ({MOCK_REFERENCIAS_CIENTIFICAS.length})
+            <span>📚 Biblioteca de Referencias</span>
+            <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
+              tabActiva === 'referencias' ? 'bg-white/20 text-[#F5FBFF]' : 'bg-[#E4EEF6] text-[#12415E]'
+            }`}>
+              {MOCK_REFERENCIAS_CIENTIFICAS.length}
+            </span>
           </button>
+
           <button
             type="button"
             onClick={() => setTabActiva('metodologia')}
-            className={`px-4 py-2.5 rounded-t-2xl font-bold text-xs sm:text-sm transition-colors cursor-pointer border-t-2 border-x-2 ${
+            className={`px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer ${
               tabActiva === 'metodologia'
-                ? 'bg-[#FFFDF9] border-[#3E83A8] text-[#3E83A8]'
-                : 'border-transparent text-[#576574] hover:text-[#253444]'
+                ? 'bg-[#3E83A8] text-[#F5FBFF] shadow-soft-xs'
+                : 'bg-white border border-[#D4DFEB] text-[#576574] hover:bg-[#E4EEF6] hover:text-[#253444]'
             }`}
           >
-            ⚖️ Criterios Metodológicos y Contexto Bolivia
+            <span>⚖️ Criterios Metodológicos & Bolivia</span>
           </button>
+
           <button
             type="button"
             onClick={() => setTabActiva('reglas')}
-            className={`px-4 py-2.5 rounded-t-2xl font-bold text-xs sm:text-sm transition-colors cursor-pointer border-t-2 border-x-2 ${
+            className={`px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer ${
               tabActiva === 'reglas'
-                ? 'bg-[#FFFDF9] border-[#3E83A8] text-[#3E83A8]'
-                : 'border-transparent text-[#576574] hover:text-[#253444]'
+                ? 'bg-[#3E83A8] text-[#F5FBFF] shadow-soft-xs'
+                : 'bg-white border border-[#D4DFEB] text-[#576574] hover:bg-[#E4EEF6] hover:text-[#253444]'
             }`}
           >
-            🛡️ Reglas Clínicas de Interpretación ({MOCK_REGLAS_GENERALES.length})
+            <span>🛡️ Reglas Clínicas</span>
+            <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
+              tabActiva === 'reglas' ? 'bg-white/20 text-[#F5FBFF]' : 'bg-[#E4EEF6] text-[#12415E]'
+            }`}>
+              {MOCK_REGLAS_GENERALES.length}
+            </span>
           </button>
         </div>
 
         {/* Content Body */}
-        <div className="p-5 sm:p-6 overflow-y-auto flex-1 space-y-5">
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-4">
           {/* TAB 1: REFERENCIAS */}
           {tabActiva === 'referencias' && (
             <div className="space-y-4">
               {/* Filter bar */}
-              <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
-                <div className="flex flex-wrap gap-1.5 w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between pb-2 border-b border-[#D4DFEB]">
+                <div className="flex flex-wrap gap-1.5">
                   {['Todas', 'TDAH', 'Dislexia', 'Discalculia', 'TCC y Pedagogía'].map((cat) => (
                     <button
                       key={cat}
@@ -150,47 +162,53 @@ export const ScientificReferencesModal: React.FC<ScientificReferencesModalProps>
 
               {/* References List */}
               <div className="space-y-3">
-                {referenciasFiltradas.map((ref) => (
-                  <div
-                    key={ref.id}
-                    className="p-4 rounded-2xl bg-white border border-[#D4DFEB] hover:border-[#6BA7C9] transition-all space-y-2 shadow-soft-xs"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="space-y-1">
-                        <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#DFD5F5] text-[#483962]">
-                          {ref.categoria}
-                        </span>
-                        <h4 className="font-bold text-sm text-[#253444] leading-snug">
-                          {ref.titulo}
-                        </h4>
-                        <p className="text-xs text-[#576574] font-semibold">
-                          {ref.autores} ({ref.ano}) • <span className="italic">{ref.revista}</span>
-                        </p>
+                {referenciasFiltradas.length > 0 ? (
+                  referenciasFiltradas.map((ref) => (
+                    <div
+                      key={ref.id}
+                      className="p-4 rounded-2xl bg-white border border-[#D4DFEB] hover:border-[#6BA7C9] transition-all space-y-2.5 shadow-soft-xs"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="space-y-1">
+                          <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#DFD5F5] text-[#483962]">
+                            {ref.categoria}
+                          </span>
+                          <h4 className="font-display font-bold text-sm sm:text-base text-[#253444] leading-snug">
+                            {ref.titulo}
+                          </h4>
+                          <p className="text-xs text-[#576574] font-semibold">
+                            {ref.autores} ({ref.ano}) • <span className="italic">{ref.revista}</span>
+                          </p>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => handleCopyAPA(ref)}
+                          title="Copiar cita en formato APA"
+                          className="p-2 rounded-xl border border-[#D4DFEB] bg-[#F9F7EE] hover:bg-[#E4EEF6] text-[#576574] hover:text-[#253444] transition-colors cursor-pointer shrink-0"
+                        >
+                          {copiadoId === ref.id ? (
+                            <Check className="w-4 h-4 text-emerald-600" />
+                          ) : (
+                            <Copy className="w-4 h-4" />
+                          )}
+                        </button>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => handleCopyAPA(ref)}
-                        title="Copiar referencia en formato APA"
-                        className="p-2 rounded-xl border border-[#D4DFEB] bg-[#F9F7EE] hover:bg-[#E4EEF6] text-[#576574] hover:text-[#253444] transition-colors cursor-pointer shrink-0"
-                      >
-                        {copiadoId === ref.id ? (
-                          <Check className="w-4 h-4 text-emerald-600" />
-                        ) : (
-                          <Copy className="w-4 h-4" />
-                        )}
-                      </button>
-                    </div>
+                      <p className="text-xs text-[#253444] bg-[#F9F7EE] p-3 rounded-xl border border-[#D4DFEB]/70 leading-relaxed">
+                        <strong className="text-[#253444]">Aporte a la plataforma:</strong> {ref.resumen}
+                      </p>
 
-                    <p className="text-xs text-[#253444]/90 bg-[#F9F7EE] p-2.5 rounded-xl border border-[#D4DFEB]/60">
-                      <strong>Aporte a la plataforma:</strong> {ref.resumen}
-                    </p>
-
-                    <div className="flex items-center gap-2 text-[11px] text-[#3E83A8] font-mono font-semibold">
-                      <span>DOI: {ref.doi}</span>
+                      <div className="flex items-center gap-2 text-[11px] text-[#3E83A8] font-mono font-semibold">
+                        <span>DOI: {ref.doi}</span>
+                      </div>
                     </div>
+                  ))
+                ) : (
+                  <div className="p-8 text-center text-xs sm:text-sm text-[#576574]">
+                    No se encontraron referencias para la búsqueda ingresada.
                   </div>
-                ))}
+                )}
               </div>
             </div>
           )}
@@ -277,15 +295,15 @@ export const ScientificReferencesModal: React.FC<ScientificReferencesModalProps>
         </div>
 
         {/* Footer Modal */}
-        <div className="p-4 sm:p-5 bg-[#F9F7EE] border-t border-[#D4DFEB] flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs text-[#576574] font-semibold">
-            <FileText className="w-4 h-4 text-[#3E83A8]" />
-            <span>Documentación revisada conforme a manuales DSM-5 y literatura científica indexada</span>
+        <div className="p-3 sm:p-4 bg-[#F9F7EE] border-t border-[#D4DFEB] flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-2 text-[11px] sm:text-xs text-[#576574] font-semibold">
+            <FileText className="w-4 h-4 text-[#3E83A8] shrink-0" />
+            <span className="line-clamp-1">Documentación revisada conforme a manuales DSM-5 y literatura indexada</span>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-[#3E83A8] hover:bg-[#326E8F] text-[#F5FBFF] transition-colors cursor-pointer"
+            className="px-5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-[#3E83A8] hover:bg-[#326E8F] text-[#F5FBFF] transition-colors cursor-pointer shrink-0 ml-2"
           >
             Entendido
           </button>
