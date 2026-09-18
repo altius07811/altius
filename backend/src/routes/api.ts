@@ -3,7 +3,8 @@ import {
   getPreguntas,
   guardarRespuestasYCalcular,
   getResultadosPorEstudiante,
-  getRecursosDerivacion
+  getRecursosDerivacion,
+  consultarAsistenteIA
 } from '../controllers/encuestaController';
 
 const router = Router();
@@ -13,5 +14,8 @@ router.get('/encuesta', getPreguntas);
 router.post('/encuesta/respuestas', guardarRespuestasYCalcular);
 router.get('/resultados/:estudiante_id', getResultadosPorEstudiante);
 router.get('/recursos', getRecursosDerivacion);
+
+// Endpoints de Inteligencia Artificial (Groq)
+router.post('/ia/consulta', consultarAsistenteIA);
 
 export default router;

@@ -1,6 +1,6 @@
 services:
   # -------------------------------------------------------------
-  # 1. Backend Web Service (Node.js + Express + Prisma)
+  # 1. Backend Web Service (Node.js + Express + Prisma + Groq AI)
   # -------------------------------------------------------------
   - type: web
     name: altius-backend
@@ -20,6 +20,10 @@ services:
         sync: false # Configurar en el Dashboard de Render con el connection string de Supabase
       - key: DIRECT_URL
         sync: false # Configurar en el Dashboard de Render con la URL directa de Supabase
+      - key: GROQ_API_KEY
+        sync: false # Configurar en el Dashboard de Render con tu API Key de Groq
+      - key: GROQ_MODEL
+        value: groq/compound
       - key: CORS_ORIGIN
         fromService:
           type: web

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   AlertTriangle, 
   BookOpenCheck, 
@@ -9,14 +9,21 @@ import {
   Sparkles, 
   CheckCircle2, 
   BarChart3,
-  HeartHandshake
+  HeartHandshake,
+  Bot,
+  Send,
+  Loader2,
+  Lightbulb
 } from 'lucide-react';
-import { ResultadoCategoria, SugerenciaItem } from '../types';
+import { ResultadoCategoria, SugerenciaItem, AnalisisPedagogicoIA } from '../types';
+import { consultarAsistenteIA } from '../services/api';
 
 interface ResultsScreenProps {
   studentCode: string;
   resultados: ResultadoCategoria[];
   sugerencias: SugerenciaItem[];
+  analisisIA?: AnalisisPedagogicoIA | null;
+  observaciones?: string;
   avisoLegal?: string;
   onNavigateToReferral: () => void;
   onRestart: () => void;
@@ -26,11 +33,42 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
   studentCode,
   resultados,
   sugerencias,
+  analisisIA,
+  observaciones,
   avisoLegal,
   onNavigateToReferral,
   onRestart
 }) => {
-  // Helper para asignar estilos visuales suaves según la paleta oficial (menta, cielo, lavanda)
+  // Asistente interactivo de IA
+  const [preguntaIA, setPreguntaIA] = useState('');
+  const [cargandoIA, setCargandoIA] = useState(false);
+  const [historialChat, setHistorialChat] = useState<Array<{ remitente: 'usuario' | 'ia'; texto: string }>>([]);
+
+  const handleEnviarConsultaIA = async (preguntaTexto?: string) => {
+    const textoAEnviar = (preguntaTexto || preguntaIA).trim();
+    if (!textoAEnviar || cargandoIA) return;
+
+    setHistorialChat((prev) => [...prev, { remitente: 'usuario', texto: textoAEnviar }]);
+    setPreguntaIA('');
+    setCargandoIA(true);
+
+    try {
+      const resp = await consultarAsistenteIA(textoAEnviar, {
+        estudiante_id: studentCode,
+        resultados: resultados.map((r) => ({ categoria: r.categoria, nivel: r.nivel })),
+        observaciones
+      });
+      setHistorialChat((prev) => [...prev, { remitente: 'ia', texto: resp.respuesta }]);
+    } catch {
+      setHistorialChat((prev) => [
+        ...prev,
+        { remitente: 'ia', texto: 'No se pudo completar la consulta en este momento. Intenta de nuevo.' }
+      ]);
+    } finally {
+      setCargandoIA(false);
+    }
+  };
+
   const getIntensityBadge = (nivel: string) => {
     const n = (nivel || '').toLowerCase();
     if (n.includes('significativa') || n.includes('relevante') || n.includes('alta')) {
@@ -170,7 +208,75 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
         </div>
       </div>
 
-      {/* Sección Próximos Pasos (Aula y Casa) */}
+      {/* SECCIÓN ESPECIAL: Síntesis Pedagógica Personalizada con IA (Groq) */}
+      {analisisIA && (
+        <div className="bg-[#FFFDF9] rounded-3xl border-2 border-[#6BA7C9] shadow-soft-md p-6 sm:p-10 space-y-6">
+          <div className="flex items-center justify-between gap-3 pb-4 border-b border-[#D4DFEB]">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-2xl bg-[#C2E4F8] text-[#12415E] flex items-center justify-center shadow-soft-sm">
+                <Bot className="w-6 h-6 text-[#12415E]" />
+              </div>
+              <div>
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-[#253444]">
+                  Síntesis y Adaptaciones con IA
+                </h3>
+                <p className="text-xs text-[#576574] font-semibold">
+                  Análisis cualitativo generado con Groq AI en base a las respuestas y observaciones ingresadas
+                </p>
+              </div>
+            </div>
+            <span className="hidden sm:inline-block text-[11px] font-bold bg-[#CAEFDD] text-[#1C463C] px-3 py-1 rounded-full">
+              Groq Powered
+            </span>
+          </div>
+
+          {/* Resumen Cualitativo */}
+          <div className="p-5 rounded-2xl bg-[#E4EEF6]/80 border border-[#D4DFEB] text-xs sm:text-sm text-[#253444] leading-relaxed">
+            <p className="font-bold text-sm mb-1 text-[#12415E] flex items-center gap-1.5">
+              <Lightbulb className="w-4 h-4 text-[#3E83A8]" />
+              Perfil Cualitativo Observado:
+            </p>
+            <p>{analisisIA.resumen_cualitativo}</p>
+          </div>
+
+          {/* Estrategias de IA para Aula y Casa */}
+          <div className="grid sm:grid-cols-2 gap-5">
+            {/* Aula IA */}
+            {analisisIA.estrategias_aula && analisisIA.estrategias_aula.length > 0 && (
+              <div className="space-y-3">
+                <h4 className="font-bold text-sm text-[#253444] flex items-center gap-2">
+                  <GraduationCap className="w-4 h-4 text-[#3E83A8]" />
+                  Adaptaciones de Aula Recomendadas:
+                </h4>
+                {analisisIA.estrategias_aula.map((est, idx) => (
+                  <div key={idx} className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#D4DFEB] text-xs space-y-1">
+                    <p className="font-bold text-[#253444]">{est.titulo}</p>
+                    <p className="text-[#576574] leading-relaxed">{est.descripcion}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Casa IA */}
+            {analisisIA.estrategias_casa && analisisIA.estrategias_casa.length > 0 && (
+              <div className="space-y-3">
+                <h4 className="font-bold text-sm text-[#253444] flex items-center gap-2">
+                  <Home className="w-4 h-4 text-[#1C463C]" />
+                  Pautas Familiares Recomendadas:
+                </h4>
+                {analisisIA.estrategias_casa.map((est, idx) => (
+                  <div key={idx} className="p-4 rounded-2xl bg-[#FFFDF9] border border-[#D4DFEB] text-xs space-y-1">
+                    <p className="font-bold text-[#253444]">{est.titulo}</p>
+                    <p className="text-[#576574] leading-relaxed">{est.descripcion}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Sección Próximos Pasos (Predeterminados) */}
       <div className="bg-[#FFFDF9] rounded-3xl border border-[#D4DFEB] shadow-soft-md p-6 sm:p-10 space-y-6">
         <div>
           <h3 className="font-display text-xl sm:text-2xl font-bold text-[#253444] flex items-center gap-2.5">
@@ -240,6 +346,90 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
               )}
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* WIDGET INTERACTIVO: Asistente Pedagógico IA (Groq) */}
+      <div className="bg-[#FFFDF9] rounded-3xl border border-[#D4DFEB] shadow-soft-md p-6 sm:p-10 space-y-5">
+        <div className="flex items-center gap-3 pb-3 border-b border-[#D4DFEB]">
+          <div className="w-10 h-10 rounded-2xl bg-[#CAEFDD] text-[#1C463C] flex items-center justify-center shadow-soft-sm">
+            <Bot className="w-5 h-5 text-[#0D4233]" />
+          </div>
+          <div>
+            <h3 className="font-display text-lg sm:text-xl font-bold text-[#253444]">
+              ¿Tienes dudas sobre cómo apoyar a este estudiante?
+            </h3>
+            <p className="text-xs text-[#576574] font-semibold">
+              Consulta en tiempo real al Asistente Psicopedagógico con IA (Groq)
+            </p>
+          </div>
+        </div>
+
+        {/* Sugerencias Rápidas de Pregunta */}
+        <div className="flex flex-wrap gap-2 pt-1">
+          {[
+            '¿Qué actividades visuales de 10 min recomiendas?',
+            '¿Cómo evaluar en matemáticas sin generar frustración?',
+            '¿Cómo estructurar la lectura compartida?'
+          ].map((sug, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => handleEnviarConsultaIA(sug)}
+              className="text-[11px] font-bold bg-[#E4EEF6] hover:bg-[#C2E4F8] text-[#12415E] px-3 py-1.5 rounded-full border border-[#D4DFEB] transition-colors cursor-pointer"
+            >
+              {sug}
+            </button>
+          ))}
+        </div>
+
+        {/* Historial de conversación */}
+        {historialChat.length > 0 && (
+          <div className="space-y-3 pt-2 max-h-72 overflow-y-auto pr-1">
+            {historialChat.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
+                  msg.remitente === 'usuario'
+                    ? 'bg-[#C2E4F8] text-[#12415E] ml-6 border border-[#a6d8f6]'
+                    : 'bg-[#CAEFDD]/60 text-[#1C463C] mr-6 border border-[#BCEBD1]'
+                }`}
+              >
+                <span className="font-bold block mb-1">
+                  {msg.remitente === 'usuario' ? 'Tu consulta:' : 'Orientación Psicopedagógica IA:'}
+                </span>
+                <p>{msg.texto}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Input de consulta */}
+        <div className="flex items-center gap-2 pt-2">
+          <input
+            type="text"
+            value={preguntaIA}
+            onChange={(e) => setPreguntaIA(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleEnviarConsultaIA()}
+            placeholder="Escribe tu consulta pedagógica aquí..."
+            className="flex-1 px-4 py-3 rounded-2xl border-2 border-[#D4DFEB] bg-[#FFFDF9] text-xs sm:text-sm font-semibold text-[#253444] focus:outline-none focus:ring-2 focus:ring-[#6BA7C9] focus:border-[#3E83A8] transition-all"
+            disabled={cargandoIA}
+          />
+          <button
+            type="button"
+            onClick={() => handleEnviarConsultaIA()}
+            disabled={!preguntaIA.trim() || cargandoIA}
+            className="px-5 py-3 rounded-2xl bg-[#3E83A8] hover:bg-[#326E8F] text-[#F5FBFF] font-bold text-xs sm:text-sm shadow-soft-sm hover:shadow-soft-md transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+          >
+            {cargandoIA ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <>
+                <span>Preguntar</span>
+                <Send className="w-4 h-4" />
+              </>
+            )}
+          </button>
         </div>
       </div>
 

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { prisma } from '../lib/prisma';
+import { generarSintesisPedagogicaIA, responderConsultaPedagogicaIA } from '../services/groqService';
 
 // Helper para convertir BigInt a String/Number en respuestas JSON
 const formatJson = (data: any): any => {
@@ -48,14 +49,20 @@ export const guardarRespuestasYCalcular = async (req: Request, res: Response): P
     }
 
     // 1. Guardar respuestas en la tabla respuestas_estudiante
-    const respuestasAGuardar = respuestas.map((r: any) => ({
-      estudiante_id: String(estudiante_id),
-      rol: rol || r.rol || 'docente',
-      categoria: r.categoria || 'General',
-      id_pregunta: r.id_pregunta || null,
-      respuesta: r.respuesta || r.texto_opcion || '',
-      peso: typeof r.peso === 'number' ? r.peso : 0
-    }));
+    let observacionCualitativa = '';
+    const respuestasAGuardar = respuestas.map((r: any) => {
+      if (r.id_pregunta === 'OBS_01' || r.tipo_pregunta === 'abierta') {
+        observacionCualitativa = r.respuesta || r.texto_opcion || '';
+      }
+      return {
+        estudiante_id: String(estudiante_id),
+        rol: rol || r.rol || 'docente',
+        categoria: r.categoria || 'General',
+        id_pregunta: r.id_pregunta || null,
+        respuesta: r.respuesta || r.texto_opcion || '',
+        peso: typeof r.peso === 'number' ? r.peso : 0
+      };
+    });
 
     if (respuestasAGuardar.length > 0) {
       await prisma.respuestaEstudiante.createMany({
@@ -131,8 +138,16 @@ export const guardarRespuestasYCalcular = async (req: Request, res: Response): P
       });
     }
 
-    // 4. Obtener sugerencias personalizadas
+    // 4. Obtener sugerencias predeterminadas
     const sugerencias = await prisma.sugerencia.findMany();
+
+    // 5. Generar análisis personalizado mediante IA con Groq
+    const analisisIA = await generarSintesisPedagogicaIA(
+      String(estudiante_id),
+      rol || 'docente',
+      resultadosCalculados,
+      observacionCualitativa
+    );
 
     res.json({
       success: true,
@@ -140,6 +155,7 @@ export const guardarRespuestasYCalcular = async (req: Request, res: Response): P
         estudiante_id,
         resultados: resultadosCalculados,
         sugerencias: formatJson(sugerencias),
+        analisis_ia: analisisIA,
         aviso_legal: 'ALTIUS es una herramienta de orientación y cribado psicopedagógico preliminar. NO constituye un diagnóstico médico, clínico ni neurológico.'
       }
     });
@@ -200,6 +216,34 @@ export const getRecursosDerivacion = async (req: Request, res: Response): Promis
     res.status(500).json({
       success: false,
       message: 'Error al obtener recursos de derivación.',
+      error: error.message
+    });
+  }
+};
+
+export const consultarAsistenteIA = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { pregunta, contexto } = req.body;
+
+    if (!pregunta || !contexto) {
+      res.status(400).json({
+        success: false,
+        message: 'Faltan parámetros obligatorios (pregunta o contexto).'
+      });
+      return;
+    }
+
+    const respuestaIA = await responderConsultaPedagogicaIA(pregunta, contexto);
+
+    res.json({
+      success: true,
+      data: respuestaIA
+    });
+  } catch (error: any) {
+    console.error('Error en consulta de IA:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error al comunicarse con el asistente de IA.',
       error: error.message
     });
   }

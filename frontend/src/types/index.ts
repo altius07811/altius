@@ -62,3 +62,11 @@ export interface RecursoDerivacion {
   publicoObjetivo: string;
   icono?: string;
 }
+
+export interface AnalisisPedagogicoIA {
+  resumen_cualitativo: string;
+  estrategias_aula: { titulo: string; descripcion: string }[];
+  estrategias_casa: { titulo: string; descripcion: string }[];
+  recomendacion_derivacion: string;
+  modelo_utilizado?: string;
+}

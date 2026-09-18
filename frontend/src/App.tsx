@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { ScreenType, PreguntaEncuesta, RolEncuestado, RespuestaUsuario, ResultadoCategoria, SugerenciaItem } from './types';
+import { 
+  ScreenType, 
+  PreguntaEncuesta, 
+  RolEncuestado, 
+  RespuestaUsuario, 
+  ResultadoCategoria, 
+  SugerenciaItem,
+  AnalisisPedagogicoIA 
+} from './types';
 import { fetchPreguntas, enviarRespuestas } from './services/api';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
@@ -19,6 +27,8 @@ export const App: React.FC = () => {
   const [loadingPreguntas, setLoadingPreguntas] = useState<boolean>(true);
   const [resultados, setResultados] = useState<ResultadoCategoria[]>([]);
   const [sugerencias, setSugerencias] = useState<SugerenciaItem[]>([]);
+  const [analisisIA, setAnalisisIA] = useState<AnalisisPedagogicoIA | null>(null);
+  const [observaciones, setObservaciones] = useState<string>('');
   const [avisoLegal, setAvisoLegal] = useState<string>('');
 
   // Load questions on mount
@@ -46,9 +56,13 @@ export const App: React.FC = () => {
   };
 
   const handleSurveySubmit = async (respuestas: RespuestaUsuario[]) => {
+    const obs = respuestas.find(r => r.id_pregunta === 'OBS_01')?.respuesta || '';
+    setObservaciones(obs);
+
     const response = await enviarRespuestas(studentCode, rol, respuestas);
     setResultados(response.resultados);
     setSugerencias(response.sugerencias);
+    setAnalisisIA(response.analisis_ia || null);
     setAvisoLegal(response.aviso_legal);
     setCurrentScreen('results');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -57,6 +71,8 @@ export const App: React.FC = () => {
   const handleRestart = () => {
     setCurrentScreen('welcome');
     setStudentCode(`EST-${Math.floor(1000 + Math.random() * 9000)}`);
+    setAnalisisIA(null);
+    setObservaciones('');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -92,6 +108,8 @@ export const App: React.FC = () => {
             studentCode={studentCode}
             resultados={resultados}
             sugerencias={sugerencias}
+            analisisIA={analisisIA}
+            observaciones={observaciones}
             avisoLegal={avisoLegal}
             onNavigateToReferral={() => {
               setCurrentScreen('referral');

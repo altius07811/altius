@@ -1,4 +1,12 @@
-import { PreguntaEncuesta, RespuestaUsuario, ResultadoCategoria, SugerenciaItem, RecursoDerivacion, CategoriaTrastorno } from '../types';
+import { 
+  PreguntaEncuesta, 
+  RespuestaUsuario, 
+  ResultadoCategoria, 
+  SugerenciaItem, 
+  RecursoDerivacion, 
+  CategoriaTrastorno,
+  AnalisisPedagogicoIA 
+} from '../types';
 import { MOCK_PREGUNTAS, MOCK_SUGERENCIAS, MOCK_RECURSOS_DERIVACION } from '../data/mockData';
 
 // Función para normalizar la URL del Backend (agrega /api automáticamente si no está presente)
@@ -35,6 +43,7 @@ export const enviarRespuestas = async (
 ): Promise<{
   resultados: ResultadoCategoria[];
   sugerencias: SugerenciaItem[];
+  analisis_ia?: AnalisisPedagogicoIA | null;
   aviso_legal: string;
 }> => {
   try {
@@ -54,6 +63,7 @@ export const enviarRespuestas = async (
         return {
           resultados: data.data.resultados,
           sugerencias: data.data.sugerencias || MOCK_SUGERENCIAS,
+          analisis_ia: data.data.analisis_ia || null,
           aviso_legal: data.data.aviso_legal
         };
       }
@@ -120,6 +130,7 @@ export const enviarRespuestas = async (
   return {
     resultados,
     sugerencias: MOCK_SUGERENCIAS,
+    analisis_ia: null,
     aviso_legal: 'ALTIUS es una herramienta de orientación y cribado psicopedagógico preliminar. NO constituye un diagnóstico médico ni clínico.'
   };
 };
@@ -137,4 +148,35 @@ export const fetchRecursosDerivacion = async (): Promise<RecursoDerivacion[]> =>
     console.warn('Utilizando recursos locales:', error);
   }
   return MOCK_RECURSOS_DERIVACION;
+};
+
+export const consultarAsistenteIA = async (
+  pregunta: string,
+  contexto: {
+    estudiante_id: string;
+    resultados: Array<{ categoria: string; nivel: string }>;
+    observaciones?: string;
+  }
+): Promise<{ respuesta: string; modelo?: string }> => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/ia/consulta`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pregunta, contexto })
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && data.data) {
+        return data.data;
+      }
+    }
+  } catch (error) {
+    console.warn('Error al consultar IA:', error);
+  }
+
+  return {
+    respuesta: 'Se recomienda estructurar consignas visuales paso a paso, brindar tiempos adicionales y consultar con el gabinete psicopedagógico de la unidad educativa.',
+    modelo: 'offline-fallback'
+  };
 };
