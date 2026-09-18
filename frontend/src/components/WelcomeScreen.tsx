@@ -90,7 +90,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onStart }) => {
           <ArrowRight className="w-5 h-5" />
         </button>
         <p className="text-xs text-[#576574] mt-3 font-semibold">
-          Toma aproximadamente 3 a 5 minutos.
+          Toma aproximadamente 15 a 20 minutos.
         </p>
       </div>
     </div>
