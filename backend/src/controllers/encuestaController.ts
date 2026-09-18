@@ -13,7 +13,17 @@ const formatJson = (data: any): any => {
 
 export const getPreguntas = async (req: Request, res: Response): Promise<void> => {
   try {
+    const rolQuery = (req.query.rol as string || '').toLowerCase();
+    
+    let whereFilter: any = {};
+    if (rolQuery === 'profesional' || rolQuery === 'psicopedagogo') {
+      whereFilter = { rol: 'profesional' };
+    } else if (rolQuery === 'docente' || rolQuery.includes('padre') || rolQuery === 'docente_padre') {
+      whereFilter = { rol: 'docente_padre' };
+    }
+
     const preguntas = await prisma.preguntaEncuesta.findMany({
+      where: whereFilter,
       orderBy: { orden: 'asc' },
       include: {
         opciones: {
@@ -22,9 +32,17 @@ export const getPreguntas = async (req: Request, res: Response): Promise<void> =
       }
     });
 
+    let testsProfesionales: any[] = [];
+    if (rolQuery === 'profesional' || rolQuery === 'psicopedagogo') {
+      testsProfesionales = await prisma.testProfesional.findMany({
+        orderBy: { id: 'asc' }
+      });
+    }
+
     res.json({
       success: true,
-      data: formatJson(preguntas)
+      data: formatJson(preguntas),
+      tests_profesionales: formatJson(testsProfesionales)
     });
   } catch (error: any) {
     console.error('Error al obtener preguntas:', error);
@@ -36,9 +54,29 @@ export const getPreguntas = async (req: Request, res: Response): Promise<void> =
   }
 };
 
+export const getTestsProfesionales = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const tests = await prisma.testProfesional.findMany({
+      orderBy: { id: 'asc' }
+    });
+
+    res.json({
+      success: true,
+      data: formatJson(tests)
+    });
+  } catch (error: any) {
+    console.error('Error al obtener tests profesionales:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error al consultar tests profesionales.',
+      error: error.message
+    });
+  }
+};
+
 export const guardarRespuestasYCalcular = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { estudiante_id, rol, respuestas } = req.body;
+    const { estudiante_id, rol, respuestas, tests_administrados } = req.body;
 
     if (!estudiante_id || !Array.isArray(respuestas)) {
       res.status(400).json({
@@ -51,8 +89,11 @@ export const guardarRespuestasYCalcular = async (req: Request, res: Response): P
     // 1. Guardar respuestas en la tabla respuestas_estudiante
     let observacionCualitativa = '';
     const respuestasAGuardar = respuestas.map((r: any) => {
-      if (r.id_pregunta === 'OBS_01' || r.tipo_pregunta === 'abierta') {
-        observacionCualitativa = r.respuesta || r.texto_opcion || '';
+      if (r.tipo_pregunta === 'abierta' || r.id_pregunta?.includes('19') || r.id_pregunta?.includes('20')) {
+        const texto = r.respuesta || r.texto_opcion || '';
+        if (texto) {
+          observacionCualitativa += `[${r.categoria || 'General'}]: ${texto}. `;
+        }
       }
       return {
         estudiante_id: String(estudiante_id),
@@ -108,12 +149,20 @@ export const guardarRespuestasYCalcular = async (req: Request, res: Response): P
         nivel = reglaEncontrada.nivel_o_regla || nivel;
         textoResultado = reglaEncontrada.detalle || textoResultado;
       } else {
-        if (puntaje >= 4) {
+        if (puntaje >= 28) {
           nivel = 'Señal Moderada';
           textoResultado = 'Se observan algunos indicadores que ameritan acompañamiento pedagógico.';
-        } else if (puntaje >= 2) {
+        } else if (puntaje >= 16) {
           nivel = 'Señal Leve';
           textoResultado = 'Manifestaciones ocasionales observables.';
+        }
+      }
+
+      // Si es evaluación profesional con tests seleccionados, enriquecer el resultado
+      if (rol === 'profesional' && Array.isArray(tests_administrados)) {
+        const testsCat = tests_administrados.filter((t: any) => t.categoria === cat);
+        if (testsCat.length > 0) {
+          textoResultado += ` Tests profesionales documentados: ${testsCat.map((t: any) => t.test).join(', ')}.`;
         }
       }
 
@@ -153,6 +202,7 @@ export const guardarRespuestasYCalcular = async (req: Request, res: Response): P
       success: true,
       data: {
         estudiante_id,
+        rol,
         resultados: resultadosCalculados,
         sugerencias: formatJson(sugerencias),
         analisis_ia: analisisIA,
@@ -201,7 +251,9 @@ export const getResultadosPorEstudiante = async (req: Request, res: Response): P
 
 export const getRecursosDerivacion = async (req: Request, res: Response): Promise<void> => {
   try {
-    const tests = await prisma.testProfesional.findMany();
+    const tests = await prisma.testProfesional.findMany({
+      orderBy: { id: 'asc' }
+    });
     const sugerencias = await prisma.sugerencia.findMany();
 
     res.json({

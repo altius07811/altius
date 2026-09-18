@@ -63,6 +63,19 @@ export interface RecursoDerivacion {
   icono?: string;
 }
 
+export interface TestProfesionalItem {
+  id: string | number;
+  categoria: string;
+  test: string;
+  tipo_test?: string;
+  informante_o_administracion?: string;
+  edad_aprox?: string;
+  variables_que_ingresa_el_profesional?: string;
+  interpretacion_breve?: string;
+  disponibilidad_bolivia_latam?: string;
+  fuente?: string;
+}
+
 export interface AnalisisPedagogicoIA {
   resumen_cualitativo: string;
   estrategias_aula: { titulo: string; descripcion: string }[];

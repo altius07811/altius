@@ -6,6 +6,7 @@ import {
   RespuestaUsuario, 
   ResultadoCategoria, 
   SugerenciaItem,
+  TestProfesionalItem,
   AnalisisPedagogicoIA 
 } from './types';
 import { fetchPreguntas, enviarRespuestas } from './services/api';
@@ -24,6 +25,7 @@ export const App: React.FC = () => {
   
   // Data state
   const [preguntas, setPreguntas] = useState<PreguntaEncuesta[]>([]);
+  const [testsProfesionales, setTestsProfesionales] = useState<TestProfesionalItem[]>([]);
   const [loadingPreguntas, setLoadingPreguntas] = useState<boolean>(true);
   const [resultados, setResultados] = useState<ResultadoCategoria[]>([]);
   const [sugerencias, setSugerencias] = useState<SugerenciaItem[]>([]);
@@ -31,16 +33,17 @@ export const App: React.FC = () => {
   const [observaciones, setObservaciones] = useState<string>('');
   const [avisoLegal, setAvisoLegal] = useState<string>('');
 
-  // Load questions on mount
+  // Load questions when role changes
   useEffect(() => {
     const loadData = async () => {
       setLoadingPreguntas(true);
-      const data = await fetchPreguntas();
-      setPreguntas(data);
+      const data = await fetchPreguntas(rol);
+      setPreguntas(data.preguntas);
+      setTestsProfesionales(data.tests_profesionales);
       setLoadingPreguntas(false);
     };
     loadData();
-  }, []);
+  }, [rol]);
 
   // Screen handlers
   const handleStart = () => {
@@ -55,11 +58,14 @@ export const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleSurveySubmit = async (respuestas: RespuestaUsuario[]) => {
+  const handleSurveySubmit = async (
+    respuestas: RespuestaUsuario[],
+    testsAdministrados?: Array<{ test: string; categoria: string; puntaje_o_observacion: string }>
+  ) => {
     const obs = respuestas.find(r => r.id_pregunta === 'OBS_01')?.respuesta || '';
     setObservaciones(obs);
 
-    const response = await enviarRespuestas(studentCode, rol, respuestas);
+    const response = await enviarRespuestas(studentCode, rol, respuestas, testsAdministrados);
     setResultados(response.resultados);
     setSugerencias(response.sugerencias);
     setAnalisisIA(response.analisis_ia || null);
@@ -95,6 +101,7 @@ export const App: React.FC = () => {
         {currentScreen === 'survey' && (
           <SurveyScreen
             preguntas={preguntas}
+            testsProfesionales={testsProfesionales}
             rolSeleccionado={rol}
             studentCode={studentCode}
             loading={loadingPreguntas}

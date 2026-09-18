@@ -5,14 +5,20 @@ import {
   SugerenciaItem, 
   RecursoDerivacion, 
   CategoriaTrastorno,
+  TestProfesionalItem,
   AnalisisPedagogicoIA 
 } from '../types';
-import { MOCK_PREGUNTAS, MOCK_SUGERENCIAS, MOCK_RECURSOS_DERIVACION } from '../data/mockData';
+import { 
+  MOCK_PREGUNTAS, 
+  MOCK_TESTS_PROFESIONALES, 
+  MOCK_SUGERENCIAS, 
+  MOCK_RECURSOS_DERIVACION 
+} from '../data/mockData';
 
 // Función para normalizar la URL del Backend (agrega /api automáticamente si no está presente)
 const getBaseUrl = (): string => {
   let url = (import.meta as any).env?.VITE_API_URL || '/api';
-  url = url.trim().replace(/\/+$/, ''); // quitar trailing slash
+  url = url.trim().replace(/\/+$/, '');
   if (url && !url.endsWith('/api')) {
     url = `${url}/api`;
   }
@@ -21,25 +27,45 @@ const getBaseUrl = (): string => {
 
 const API_BASE_URL = getBaseUrl();
 
-export const fetchPreguntas = async (): Promise<PreguntaEncuesta[]> => {
+export const fetchPreguntas = async (rol?: string): Promise<{
+  preguntas: PreguntaEncuesta[];
+  tests_profesionales: TestProfesionalItem[];
+}> => {
+  const isProfesional = rol === 'profesional' || rol === 'psicopedagogo';
+  const roleParam = isProfesional ? 'profesional' : 'docente_padre';
+
   try {
-    const res = await fetch(`${API_BASE_URL}/encuesta`);
+    const res = await fetch(`${API_BASE_URL}/encuesta?rol=${roleParam}`);
     if (!res.ok) throw new Error(`HTTP error ${res.status}`);
     const data = await res.json();
     if (data.success && Array.isArray(data.data) && data.data.length > 0) {
-      return data.data;
+      return {
+        preguntas: data.data,
+        tests_profesionales: Array.isArray(data.tests_profesionales) && data.tests_profesionales.length > 0
+          ? data.tests_profesionales
+          : (isProfesional ? MOCK_TESTS_PROFESIONALES : [])
+      };
     }
-    return MOCK_PREGUNTAS;
   } catch (error) {
-    console.warn('Backend API no disponible. Utilizando datos base predefinidos:', error);
-    return MOCK_PREGUNTAS;
+    console.warn('Backend API no disponible. Utilizando datos predefinidos de Excel:', error);
   }
+
+  // Fallback con MOCK_PREGUNTAS filtradas por rol
+  const filteredPreguntas = isProfesional
+    ? MOCK_PREGUNTAS.filter((p) => p.rol === 'profesional')
+    : MOCK_PREGUNTAS.filter((p) => p.rol === 'docente_padre');
+
+  return {
+    preguntas: filteredPreguntas.length > 0 ? filteredPreguntas : MOCK_PREGUNTAS,
+    tests_profesionales: isProfesional ? MOCK_TESTS_PROFESIONALES : []
+  };
 };
 
 export const enviarRespuestas = async (
   estudianteId: string,
   rol: string,
-  respuestas: RespuestaUsuario[]
+  respuestas: RespuestaUsuario[],
+  testsAdministrados?: Array<{ test: string; categoria: string; puntaje_o_observacion: string }>
 ): Promise<{
   resultados: ResultadoCategoria[];
   sugerencias: SugerenciaItem[];
@@ -53,7 +79,8 @@ export const enviarRespuestas = async (
       body: JSON.stringify({
         estudiante_id: estudianteId,
         rol,
-        respuestas
+        respuestas,
+        tests_administrados: testsAdministrados || []
       })
     });
 
@@ -81,13 +108,13 @@ export const enviarRespuestas = async (
   });
 
   const getDetalle = (cat: string, p: number) => {
-    if (p >= 3) {
+    if (p >= 28) {
       return {
         nivel: 'Señal Moderada',
         texto_resultado: `Se observan indicadores en ${cat} que justifican estrategias pedagógicas de apoyo y seguimiento.`
       };
     }
-    if (p >= 1) {
+    if (p >= 16) {
       return {
         nivel: 'Señal Leve',
         texto_resultado: `Presencia de señales iniciales o situacionales en ${cat}.`
